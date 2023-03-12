@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.mavenproject1;
+package com.group7.FileProcessor;
 
 import com.laserfiche.api.client.model.AccessKey;
 import com.laserfiche.repository.api.RepositoryApiClient;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
  *
  * @author keric
  */
-public class Mavenproject1 {
+public class FileProcessorMain {
 
      public static void main(String[] args) {
         String servicePrincipalKey = "z6N-YywpamJ5Dr227qKb";
