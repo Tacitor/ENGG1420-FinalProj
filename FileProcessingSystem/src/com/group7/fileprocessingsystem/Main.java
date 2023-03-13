@@ -16,6 +16,8 @@ import javax.swing.filechooser.FileFilter;
  */
 public class Main extends javax.swing.JFrame {
 
+    //Attributes HERE
+    //ArrayList of ProsOps here
     /**
      * Creates new form Main
      */
@@ -135,8 +137,12 @@ public class Main extends javax.swing.JFrame {
 
         //check for a valid option
         if (userFileSelection == JFileChooser.APPROVE_OPTION) {
-            //TODO: Add File reading behavior
+            //Temp print statement
             System.out.println("File selected:\n" + jsonFileLoader.getSelectedFile().getPath());
+
+            //TODO: Add File reading behavior
+            processJSON(jsonFileLoader.getSelectedFile().getPath());
+
         } else {
             JOptionPane.showMessageDialog(null, "There was no file selected.", "File Selection Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -185,4 +191,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Given a .JSON file path, read in the file and generate the required
+     * Processing Operation from the file.
+     *
+     * @param path - File path to the .JSON file
+     */
+    private void processJSON(String path) {
+        System.out.println("TODO: Add the JSON reading code. Waiting on TA response for Jackson Library.");
+    }
 }
