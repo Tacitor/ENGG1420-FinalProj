@@ -1,7 +1,7 @@
 /*
- * Lukas Krampitz
+ * Lukas Krampitz, and Group 7
  * Mar 12, 2023
- * 
+ * Main GUI of the File Processor. Also contains the main method. Prompts the user for the JSON file.
  */
 package com.group7.fileprocessingsystem;
 
@@ -182,6 +182,8 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
+        
+        Util.isFile("C:\\Users\\Lukas\\Desktop\\test.txt");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
