@@ -24,6 +24,9 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
 
     }
     
+    /**
+     * a method to update the stored contents, works similar to a refresh to check for any changes to the file
+     */
     public void updateContents(){
         try {
             file = new File(address);
