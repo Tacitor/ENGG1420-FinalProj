@@ -11,8 +11,8 @@ import java.util.List;
  * @author keric
  */
 public class ScenarioPOJO {
-    private String name;
-    private List<ProcessingElementPOJO> elements;
+    private String name;//variables must have same name as .Json
+    private List<ProcessingElementPOJO> processing_elements;
 
     public String getName() {
         return name;
@@ -22,12 +22,12 @@ public class ScenarioPOJO {
         this.name = name;
     }
 
-    public List<ProcessingElementPOJO> getElements() {
-        return elements;
+    public List<ProcessingElementPOJO> getProcessing_elements() {
+        return processing_elements;
     }
 
-    public void setElements(List<ProcessingElementPOJO> elements) {
-        this.elements = elements;
+    public void setProcessing_elements(List<ProcessingElementPOJO> processing_elements) {
+        this.processing_elements = processing_elements;
     }
     
 }

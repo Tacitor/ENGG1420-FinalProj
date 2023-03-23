@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ProcessingElementPOJO {
     private String type;
-    private List<EntriesPOJO> entries;
+    private List<EntriesPOJO> input_entries;
     private List<ParametersPOJO> parameters;
 
     public String getType() {
@@ -23,12 +23,12 @@ public class ProcessingElementPOJO {
         this.type = type;
     }
 
-    public List<EntriesPOJO> getEntries() {
-        return entries;
+    public List<EntriesPOJO> getInput_entries() {
+        return input_entries;
     }
 
-    public void setEntries(List<EntriesPOJO> entries) {
-        this.entries = entries;
+    public void setInput_entries(List<EntriesPOJO> input_entries) {
+        this.input_entries = input_entries;
     }
 
     public List<ParametersPOJO> getParameters() {
@@ -38,5 +38,6 @@ public class ProcessingElementPOJO {
     public void setParameters(List<ParametersPOJO> parameters) {
         this.parameters = parameters;
     }
-    
+
+
 }
