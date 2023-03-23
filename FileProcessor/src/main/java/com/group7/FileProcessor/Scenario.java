@@ -19,14 +19,15 @@ public class Scenario {
            
 
 String testScenario = "{\n" +
-"    \"name\": \"First Scenario\",\n" +
-"    \"processing_elements\": [\n" +
+"    \"name\": \"Test Scenario\",\n" +
+"    \"processing_elements\": [     \n" +
 "        {\n" +
-"            \"type\": \"List\",\n" +
+"            \"type\": \"Print\", \n" +
 "            \"input_entries\": [\n" +
 "                {\n" +
-"                    \"type\": \"local\",\n" +
-"                    \"path\": \"c:\\\\sample\\\\text_files\"\n" +
+"                    \"type\": \"remte\",\n" +
+"                    \"repositoryId\": \"r-34w6\",\n" +
+"                    \"entryId\" : \"1\"\n" +
 "                }\n" +
 "            ],\n" +
 "            \"parameters\": [\n" +
@@ -34,26 +35,7 @@ String testScenario = "{\n" +
 "                    \"name\": \"Max\",\n" +
 "                    \"value\": \"100\"\n" +
 "                }\n" +
-"            ]\n" +
-"        },\n" +
-"        {\n" +
-"            \"type\": \"LengthFilter\",\n" +
-"            \"input_entries\": [],\n" +
-"            \"parameters\": [\n" +
-"                {\n" +
-"                    \"name\": \"Length\",\n" +
-"                    \"value\": \"1024\"\n" +
-"                },\n" +
-"                {\n" +
-"                    \"name\": \"Operator\",\n" +
-"                    \"value\": \"GTE\"\n" +
-"                }\n" +
-"            ]\n" +
-"        },\n" +
-"        {\n" +
-"            \"type\": \"Print\",\n" +
-"            \"input_entries\": [],\n" +
-"            \"parameters\": []\n" +
+"            ]           \n" +
 "        }\n" +
 "    ]\n" +
 "}";
@@ -70,6 +52,8 @@ String testScenario = "{\n" +
             for (EntriesPOJO entries : element.getInput_entries()){
                 System.out.println("        type: " + entries.getType());
                 System.out.println("        path: " + entries.getPath());
+                System.out.println("        Laserfiche Repo ID: " + entries.getRepositoryId());
+                System.out.println("        Laserfiche Entry ID: " + entries.getEntryId());
             }
             System.out.println("    Parameters: ");
             for (ParametersPOJO param : element.getParameters()){

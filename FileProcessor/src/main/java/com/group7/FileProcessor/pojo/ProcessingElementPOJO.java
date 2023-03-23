@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ProcessingElementPOJO {
     private String type;
-    private List<EntriesPOJO> input_entries;
+    private List<EntriesPOJO> input_entries;//Maybe shange to array list
     private List<ParametersPOJO> parameters;
 
     public String getType() {
