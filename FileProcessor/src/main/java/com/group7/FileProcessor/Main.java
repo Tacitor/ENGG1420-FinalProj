@@ -6,6 +6,8 @@
 package com.group7.FileProcessor;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -18,6 +20,7 @@ public class Main extends javax.swing.JFrame {
 
     //Attributes HERE
     boolean validJSONFile = false; //Has the user selected a file containing the processing senario.
+    String jsonFilePath;
 
     //ArrayList of ProsOps here
     /**
@@ -151,12 +154,15 @@ public class Main extends javax.swing.JFrame {
 
         //check for a valid option
         if (userFileSelection == JFileChooser.APPROVE_OPTION) {
+            //store the file path
+            jsonFilePath = jsonFileLoader.getSelectedFile().getPath();
+
             //Temp print statement
-            System.out.println("File selected:\n" + jsonFileLoader.getSelectedFile().getPath());
+            System.out.println("File selected:\n" + jsonFilePath);
 
             //The user has now selected a .JSON File
             validJSONFile = true;
-            
+
             //Update the button to start the processing
             startBtn.setEnabled(validJSONFile);
 
@@ -167,7 +173,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_fileSelectBtnActionPerformed
 
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
-        // TODO add your handling code here:
+        //Read in the .JSON file
+        processJSON(jsonFilePath);
     }//GEN-LAST:event_startBtnActionPerformed
 
     /**
@@ -221,6 +228,30 @@ public class Main extends javax.swing.JFrame {
      * @param path - File path to the .JSON file
      */
     private void processJSON(String path) {
-        System.out.println("TODO: Add the JSON reading code. Waiting on TA response for Jackson Library.");
+        //String to store the .JSON file into
+        StringBuilder sb = new StringBuilder();
+
+        //open a try catch to try and read in the file
+        try {
+
+            File jsonFile = new File(path);
+            Scanner scanner = new Scanner(jsonFile);
+
+            //Read in the .JSON file
+            while (scanner.hasNextLine()) {
+                //add in the line from the file
+                sb.append(scanner.nextLine());
+                sb.append("\n"); //add in a new line to prepare for the next itteration of the loop
+
+            }
+            
+            //Pass the file String to the Sequencer
+            //Sequencer.file(sb.toString());
+
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR:  The file was not found.\n" + e);
+        }
+
     }
+
 }
