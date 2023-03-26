@@ -6,6 +6,8 @@
 package com.group7.FileProcessor;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -17,6 +19,9 @@ import javax.swing.filechooser.FileFilter;
 public class Main extends javax.swing.JFrame {
 
     //Attributes HERE
+    boolean validJSONFile = false; //Has the user selected a file containing the processing senario.
+    String jsonFilePath;
+
     //ArrayList of ProsOps here
     /**
      * Creates new form Main
@@ -39,6 +44,7 @@ public class Main extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         fileSelectBtn = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
+        startBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("File Processor");
@@ -67,6 +73,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        startBtn.setText("Start Processing");
+        startBtn.setEnabled(false);
+        startBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,6 +88,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -92,7 +107,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fileSelectBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(startBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(exitBtn)
                 .addContainerGap())
         );
@@ -137,17 +154,28 @@ public class Main extends javax.swing.JFrame {
 
         //check for a valid option
         if (userFileSelection == JFileChooser.APPROVE_OPTION) {
-            //Temp print statement
-            System.out.println("File selected:\n" + jsonFileLoader.getSelectedFile().getPath());
+            //store the file path
+            jsonFilePath = jsonFileLoader.getSelectedFile().getPath();
 
-            //TODO: Add File reading behavior
-            processJSON(jsonFileLoader.getSelectedFile().getPath());
+            //Temp print statement
+            System.out.println("File selected:\n" + jsonFilePath);
+
+            //The user has now selected a .JSON File
+            validJSONFile = true;
+
+            //Update the button to start the processing
+            startBtn.setEnabled(validJSONFile);
 
         } else {
             JOptionPane.showMessageDialog(null, "There was no file selected.", "File Selection Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_fileSelectBtnActionPerformed
+
+    private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
+        //Read in the .JSON file
+        processJSON(jsonFilePath);
+    }//GEN-LAST:event_startBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,6 +218,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton startBtn;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -199,6 +228,30 @@ public class Main extends javax.swing.JFrame {
      * @param path - File path to the .JSON file
      */
     private void processJSON(String path) {
-        System.out.println("TODO: Add the JSON reading code. Waiting on TA response for Jackson Library.");
+        //String to store the .JSON file into
+        StringBuilder sb = new StringBuilder();
+
+        //open a try catch to try and read in the file
+        try {
+
+            File jsonFile = new File(path);
+            Scanner scanner = new Scanner(jsonFile);
+
+            //Read in the .JSON file
+            while (scanner.hasNextLine()) {
+                //add in the line from the file
+                sb.append(scanner.nextLine());
+                sb.append("\n"); //add in a new line to prepare for the next itteration of the loop
+
+            }
+            
+            //Pass the file String to the Sequencer
+            //Sequencer.file(sb.toString());
+
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR:  The file was not found.\n" + e);
+        }
+
     }
+
 }
