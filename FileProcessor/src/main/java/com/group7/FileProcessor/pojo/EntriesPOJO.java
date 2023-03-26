@@ -11,6 +11,8 @@ package com.group7.FileProcessor.pojo;
 public class EntriesPOJO {
     private String type;
     private String path;
+    private String repositoryId;
+    private String entryId;
 
     public String getType() {
         return type;
@@ -26,6 +28,22 @@ public class EntriesPOJO {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getRepositoryId() {
+        return repositoryId;
+    }
+
+    public void setRepositoryId(String repositoryId) {
+        this.repositoryId = repositoryId;
+    }
+
+    public String getEntryId() {
+        return entryId;
+    }
+
+    public void setEntryId(String entryId) {
+        this.entryId = entryId;
     }
     
 }
