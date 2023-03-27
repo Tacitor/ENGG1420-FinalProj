@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author shale
+ * @author shalev
  */
 public class LocFile extends Local {//couldn't name file or it would conflict with the File built in class
 
@@ -19,9 +19,7 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
 
     public LocFile(String address) {
         super(address);
-
         updateContents();
-
     }
     
     /**
@@ -36,14 +34,15 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
             updateSize();// updating the stored size of the file
             
             //setting contents
-            String temp = "";
+            StringBuilder temp = new StringBuilder();
             while (scanner.hasNext()) {
-                temp += scanner.nextLine() + "\n"; // running through all the lines in the file and adding them to temp
+                temp.append(scanner.nextLine()); // running through all the lines in the file and adding them to temp
+                temp.append("\n");
             }
-            setContents(temp);
+            setContents(temp.toString());
 
         } catch (FileNotFoundException e) {
-            System.out.println("File Not Found, adress: " + address);
+            e.printStackTrace();
         }
     }
 

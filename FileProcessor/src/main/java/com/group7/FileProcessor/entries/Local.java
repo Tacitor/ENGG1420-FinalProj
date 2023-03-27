@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 
 /**
  *
- * @author shale
+ * @author shalev
  */
 public class Local extends Entry{
     
@@ -35,7 +35,7 @@ public class Local extends Entry{
             Path path = Paths.get(getAddress());
             setLength(Files.size(path));
         } catch (IOException e) {
-            System.out.println("IOException in LocFile");
+            e.printStackTrace();
         }
 
     }

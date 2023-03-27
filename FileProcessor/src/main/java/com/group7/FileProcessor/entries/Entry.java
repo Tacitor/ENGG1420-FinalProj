@@ -6,7 +6,7 @@ package com.group7.FileProcessor.entries;
 
 /**
  *
- * @author shale
+ * @author shalev
  */
 public abstract class Entry {
     
