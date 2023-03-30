@@ -4,7 +4,7 @@
  */
 package com.group7.FileProcessor.pojo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class ProcessingElementPOJO {
     private String type;
-    private List<EntriesPOJO> input_entries;//Maybe shange to array list
-    private List<ParametersPOJO> parameters;
+    private ArrayList<EntriesPOJO> input_entries;//Maybe shange to array list
+    private ArrayList<ParametersPOJO> parameters;
 
     public String getType() {
         return type;
@@ -23,19 +23,19 @@ public class ProcessingElementPOJO {
         this.type = type;
     }
 
-    public List<EntriesPOJO> getInput_entries() {
+    public ArrayList<EntriesPOJO> getInput_entries() {
         return input_entries;
     }
 
-    public void setInput_entries(List<EntriesPOJO> input_entries) {
+    public void setInput_entries(ArrayList<EntriesPOJO> input_entries) {
         this.input_entries = input_entries;
     }
 
-    public List<ParametersPOJO> getParameters() {
+    public ArrayList<ParametersPOJO> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<ParametersPOJO> parameters) {
+    public void setParameters(ArrayList<ParametersPOJO> parameters) {
         this.parameters = parameters;
     }
 

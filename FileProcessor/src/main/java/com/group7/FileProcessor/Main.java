@@ -21,6 +21,7 @@ public class Main extends javax.swing.JFrame {
     //Attributes HERE
     boolean validJSONFile = false; //Has the user selected a file containing the processing senario.
     String jsonFilePath;
+    Sequencer leSequencer;
 
     //ArrayList of ProsOps here
     /**
@@ -173,8 +174,22 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_fileSelectBtnActionPerformed
 
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
-        //Read in the .JSON file
-        processJSON(jsonFilePath);
+        String processsedFile = null;
+
+        //Read in the .JSON file and store it
+        processsedFile = processJSON(jsonFilePath);
+
+        //check for a null string
+        if (processsedFile != null) {
+            //create the sequencer
+            leSequencer = new Sequencer();
+
+            //prime the sequencer
+            leSequencer.setScenarioAsString(processsedFile);
+
+            //run it 
+            leSequencer.run();
+        }
     }//GEN-LAST:event_startBtnActionPerformed
 
     /**
@@ -227,7 +242,7 @@ public class Main extends javax.swing.JFrame {
      *
      * @param path - File path to the .JSON file
      */
-    private void processJSON(String path) {
+    private String processJSON(String path) {
         //String to store the .JSON file into
         StringBuilder sb = new StringBuilder();
 
@@ -235,21 +250,35 @@ public class Main extends javax.swing.JFrame {
         try {
 
             File jsonFile = new File(path);
-            Scanner scanner = new Scanner(jsonFile);
 
-            //Read in the .JSON file
-            while (scanner.hasNextLine()) {
-                //add in the line from the file
-                sb.append(scanner.nextLine());
-                sb.append("\n"); //add in a new line to prepare for the next itteration of the loop
+            //make sure it is a file to read
+            if (Util.isFile(path) == 1) {
+                Scanner scanner = new Scanner(jsonFile);
 
+                //Read in the .JSON file
+                while (scanner.hasNextLine()) {
+                    //add in the line from the file
+                    sb.append(scanner.nextLine());
+                    sb.append("\n"); //add in a new line to prepare for the next itteration of the loop
+
+                }
+
+                //return the file as a string
+                return sb.toString();
+
+            } else {
+                //This should be an unreachable statement. If this ever runs then there is an error with the FileFilter when selecting a .JSON file.
+                System.out.println("ERROR: The selected item is not a file.");
+
+                //return a null string as an error
+                return null;
             }
-            
-            //Pass the file String to the Sequencer
-            //Sequencer.file(sb.toString());
 
         } catch (FileNotFoundException e) {
             System.out.println("ERROR:  The file was not found.\n" + e);
+
+            //return a null string as an error
+            return null;
         }
 
     }

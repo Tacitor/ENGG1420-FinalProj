@@ -6,6 +6,9 @@
 package com.group7.FileProcessor;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -18,11 +21,21 @@ public abstract class Util {
      * portion of the address contains a .
      *
      * @param path
-     * @return
+     * @return an int. Return 1 if it is a file. 0 if it is not a file. and -1
+     * for any error
      */
-    public static boolean isFile(String path) {
+    public static int isFile(String path) {
 
-        return path.substring(path.lastIndexOf(File.separator), path.length()).contains(".");
+        File file = new File(path);
+
+        if (file.exists()) {
+            return file.isFile() ? 1 : 0;
+        } else {
+            return -1;
+        }
+
+        //return 
+        //return path.substring(path.lastIndexOf(File.separator), path.length()).contains(".");
     }
 
 }
