@@ -235,19 +235,25 @@ public class Main extends javax.swing.JFrame {
         try {
 
             File jsonFile = new File(path);
-            Scanner scanner = new Scanner(jsonFile);
 
-            //Read in the .JSON file
-            while (scanner.hasNextLine()) {
-                //add in the line from the file
-                sb.append(scanner.nextLine());
-                sb.append("\n"); //add in a new line to prepare for the next itteration of the loop
+            //make sure it is a file to read
+            if (Util.isFile(path) == 1) {
+                Scanner scanner = new Scanner(jsonFile);
 
+                //Read in the .JSON file
+                while (scanner.hasNextLine()) {
+                    //add in the line from the file
+                    sb.append(scanner.nextLine());
+                    sb.append("\n"); //add in a new line to prepare for the next itteration of the loop
+
+                }
+            } else {
+                //This should be an unreachable statement. If this ever runs then there is an error with the FileFilter when selecting a .JSON file.
+                System.out.println("ERROR: The selected item is not a file.");
             }
-            
+
             //Pass the file String to the Sequencer
             //Sequencer.file(sb.toString());
-
         } catch (FileNotFoundException e) {
             System.out.println("ERROR:  The file was not found.\n" + e);
         }
