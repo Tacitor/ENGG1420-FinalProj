@@ -10,20 +10,16 @@ package com.group7.FileProcessor.entries;
  */
 public abstract class Entry {
     
-    String contents;
+    
     long length; // stores length in byte formatt
 
-    public String getContents() {
-        return contents;
-    }
+    
 
     public long getLength() {
         return length;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
+    
 
     protected void setLength(long length) {
         this.length = length;

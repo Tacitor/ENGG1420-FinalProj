@@ -16,10 +16,19 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
 
     File file;
     Scanner scanner;
+    String contents;
 
     public LocFile(String address) {
         super(address);
         updateContents();
+    }
+    
+    public String getContents() {
+        return contents;
+    }
+    
+    private void setContents(String contents) {
+        this.contents = contents;
     }
     
     /**
@@ -45,6 +54,7 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
             e.printStackTrace();
         }
     }
+    
 
     
 
