@@ -71,15 +71,42 @@ public class Sequencer {
             try {
 
                 //Use Jackson to pasrse the scenario
+                //Code coppied from Scenario.java that Eric @Fluff-E wrote
                 JsonNode node = Json.parse(scenarioAsString);//make JsonNode
                 ScenarioPOJO scenario = Json.fromJson(node, ScenarioPOJO.class);//map to class
 
                 //exratract the name
                 scenarioName = scenario.getName();
 
-                //Print the date in the Scenario
+                //Print the name of the Scenario
                 System.out.println("Scenario name: " + scenario.getName());
 
+                //Get the list of processing elements
+                processingElements = scenario.getProcessing_elements();
+                
+                //=-=-=-=-=-=-=-=-=-=
+                //TODO this needs to map the POJOs to the Shalev Element
+                //=-=-=-=-=-=-=-=-=-=
+                
+                //loop through all the processing elements and run them
+                for (int i = 0 ; i < processingElements.size(); i++) {
+                    
+                    //TODO add the proccessing feature
+                    //run the current element
+                    //processingElements.get(i).process();
+                    
+                    //update the next element to have its input be the output of the other
+                    //check for out of bounds too
+                    if (i != (processingElements.size() - 1)) {
+                        
+                        //TODO add the ablility to get the output of a processing element
+                        //update the next element
+                        //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                    }
+                }
+
+                /*
+                //Code coppied from Scenario.java that Eric @Fluff-E wrote
                 for (ProcessingElementPOJO element : scenario.getProcessing_elements()) {
                     System.out.println("Processing Element Type:  " + element.getType());
                     System.out.println("    Input Entries: ");
@@ -95,7 +122,7 @@ public class Sequencer {
                         System.out.println("        value: " + param.getValue());
                     }
                 }
-
+                 */
             } catch (IOException e) {
                 System.out.println("ERROR: IOException when reading parsing and reading the scenarioAsString in Sequencer.java\n" + e);
             }
