@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  */
 public class LocFolder extends Local {
 
-    String[] contents;//coltains the filepaths of all subFiles and subfolders, the contents of subfolders is also stored
+    String[] subFiles;//coltains the filepaths of all subFiles and subfolders, the contents of subfolders is also stored
 
     /**
      * constructor for a local folder
@@ -26,13 +26,13 @@ public class LocFolder extends Local {
      */
     public LocFolder(String address) {
         super(address);
-        updateContents();
+        updateSubFiles();
     }
 
     /**
      * a method to update the stored contents of the folder
      */
-    public void updateContents() {
+    public void updateSubFiles() {
         try {
             
             List<String> tempList;
@@ -43,7 +43,7 @@ public class LocFolder extends Local {
 
             tempList = subPaths.map(p->p.toString()).collect(Collectors.toList());
             
-            contents = tempList.toArray(String[]::new);
+            subFiles = tempList.toArray(String[]::new);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,8 +51,9 @@ public class LocFolder extends Local {
     }
 
    
-    public String[] getContents() {
-        return contents;
+    @Override
+    public String getContents() throws FolderDoesNotContainTextException{
+        throw new FolderDoesNotContainTextException();
     }
     
 }

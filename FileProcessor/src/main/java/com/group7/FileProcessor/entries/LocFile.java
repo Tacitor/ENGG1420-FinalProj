@@ -16,14 +16,15 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
 
     File file;
     Scanner scanner;
-    String contents;
+    
 
     public LocFile(String address) {
         super(address);
         updateContents();
     }
     
-    public String getContents() {
+    @Override
+    public String getContents() throws FolderDoesNotContainTextException {
         return contents;
     }
     
@@ -40,7 +41,6 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
             
             scanner = new Scanner(file);
             
-            updateSize();// updating the stored size of the file
             
             //setting contents
             StringBuilder temp = new StringBuilder();
