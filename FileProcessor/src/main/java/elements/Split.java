@@ -4,22 +4,35 @@
  */
 package elements;
 
-import com.group7.FileProcessor.pojo.EntriesPOJO;
-import java.util.ArrayList;
+import com.group7.FileProcessor.Util;
 
 /**
  *
  * @author keric
  */
-public abstract class Split {
+public class Split extends ProcessingElement {
 
-    private ArrayList<EntriesPOJO> inputEntries;
-    private ArrayList<EntriesPOJO> outputEntries;
+    //Attributes
+    private int lines;
 
-    public abstract void splitter(ArrayList<EntriesPOJO> inputEntries, int Lines);
+    /**
+     * Primary default constructor.
+     */
+    public Split() {
+        super();
+    }
 
-    public Split(ArrayList<EntriesPOJO> inputEntries) {
-        this.inputEntries = inputEntries;
+    @Override
+    public void process() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int getLines() {
+        return lines;
+    }
+
+    public void setLines(int lines) {
+        this.lines = Util.getIntGreaterThan1(lines);
     }
 
 }

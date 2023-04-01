@@ -4,22 +4,35 @@
  */
 package elements;
 
-import com.group7.FileProcessor.pojo.EntriesPOJO;
-import java.util.ArrayList;
+import com.group7.FileProcessor.Util;
 
 /**
  *
  * @author keric
  */
-public abstract class List {
+public class List extends ProcessingElement {
 
-    private ArrayList<EntriesPOJO> inputEntries;
-    private ArrayList<EntriesPOJO> outputEntries;
+    //Attributes
+    private int max;
 
-    public abstract void makeList(ArrayList<EntriesPOJO> inputEntries, int Max);
+    /**
+     * Primary default constructor.
+     */
+    public List() {
+        super();
+    }
 
-    public List(ArrayList<EntriesPOJO> inputEntries) {
-        this.inputEntries = inputEntries;
+    @Override
+    public void process() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = Util.getIntGreaterThan1(max);
     }
 
 }

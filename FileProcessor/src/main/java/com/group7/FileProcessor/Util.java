@@ -6,9 +6,6 @@
 package com.group7.FileProcessor;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  *
@@ -36,6 +33,24 @@ public abstract class Util {
 
         //return 
         //return path.substring(path.lastIndexOf(File.separator), path.length()).contains(".");
+    }
+
+    /**
+     * Ensure a given int is greater than 0. Default to 1 for any 0 parameter.
+     * And the positive integer for any negative parameter.
+     *
+     * @param n
+     * @return
+     */
+    public static int getIntGreaterThan1(int n) {
+        //test for 0
+        if (n == 0) {
+            //set it to 1 to ensuer a value greater than 0
+            return 1;
+        } else {
+            //set the provided value. Ensure it is positive
+            return Math.abs(n);
+        }
     }
 
 }
