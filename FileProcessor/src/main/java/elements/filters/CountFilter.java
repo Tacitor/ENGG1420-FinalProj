@@ -10,8 +10,6 @@ import com.group7.FileProcessor.entries.Entry;
 import com.group7.FileProcessor.entries.FolderDoesNotContainTextException;
 import elements.ProcessingElement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -31,9 +29,7 @@ public class CountFilter extends ProcessingElement {
     }
 
     @Override
-    public void process() {
-        ArrayList<Entry> output = new ArrayList<>();
-        
+    public void process() {        
         // In case min input is out of range set to 1
         if (min <= 0) {
             min = 1;
@@ -45,6 +41,8 @@ public class CountFilter extends ProcessingElement {
         for (int i = 0; i < inputCopy.size(); i++) {
             input.add(inputCopy.get(i));
         }
+        // Ouput of entries
+        ArrayList<Entry> output = new ArrayList<>();
         
         for (int i = 0; i < input.size(); i++) {
             //Check to make sure entry is a file
@@ -54,7 +52,7 @@ public class CountFilter extends ProcessingElement {
                         output.add(input.get(i));
                     }
                 } catch (FolderDoesNotContainTextException ex) {
-                    Logger.getLogger(CountFilter.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error in CountFilter.java\n" + ex);
                 }
             }
         }
