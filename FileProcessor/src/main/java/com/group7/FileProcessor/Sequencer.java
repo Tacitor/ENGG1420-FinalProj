@@ -6,8 +6,6 @@
 package com.group7.FileProcessor;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.group7.FileProcessor.pojo.EntriesPOJO;
-import com.group7.FileProcessor.pojo.ParametersPOJO;
 import com.group7.FileProcessor.pojo.ProcessingElementPOJO;
 import com.group7.FileProcessor.pojo.ScenarioPOJO;
 import java.io.IOException;
@@ -65,6 +63,7 @@ public class Sequencer {
 
         //check if the senario may run
         if (readyToProcess) {
+            boolean continueScenario = false; //Should the scenario be allowed to continue runing. Default to false since the .JSON has not been read in yet.
 
             //Use Jackson to pasrse the scenario
             //Code coppied from Scenario.java that Eric @Fluff-E wrote
@@ -72,40 +71,49 @@ public class Sequencer {
             try {
                 JsonNode node = Json.parse(scenarioAsString);//make JsonNode
                 scenario = Json.fromJson(node, ScenarioPOJO.class); //map to class
+
+                //If this all ran and no exception ocurred than allow the processing to continue
+                continueScenario = true;
             } catch (IOException e) {
                 System.out.println("ERROR: IOException when mapping .Json file to ScenarioPOJO in Sequencer.java\n" + e);
+
+                //make sure the rest cannot run since there was an exception
+                continueScenario = false;
             }
-            scenario.print();
 
-            //try catch any exceptions
-            //Get the list of processing elements
-            processingElements = scenario.getProcessing_elements();
+            //only run the scenario if there was no error when reading the JSON
+            if (continueScenario) {
 
-            //=-=-=-=-=-=-=-=-=-=
-            //TODO this needs to map the POJOs to the Shalev Element
-            //=-=-=-=-=-=-=-=-=-=
-            //loop through all the processing elements and run them
-            for (int i = 0; i < processingElements.size(); i++) {
+                scenario.print();
 
-                //TODO add the proccessing feature
-                //run the current element
-                //processingElements.get(i).process();
-                //update the next element to have its input be the output of the other
-                //check for out of bounds too
-                if (i != (processingElements.size() - 1)) {
+                //Get the list of processing elements
+                processingElements = scenario.getProcessing_elements();
 
-                    //TODO add the ablility to get the output of a processing element
-                    //update the next element
-                    //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                //=-=-=-=-=-=-=-=-=-=
+                //TODO this needs to map the POJOs to the Shalev Element
+                //=-=-=-=-=-=-=-=-=-=
+                
+                //loop through all the processing elements and run them
+                for (int i = 0; i < processingElements.size(); i++) {
+
+                    //TODO add the proccessing feature
+                    //run the current element
+                    //processingElements.get(i).process();
+                    //update the next element to have its input be the output of the other
+                    //check for out of bounds too
+                    if (i != (processingElements.size() - 1)) {
+
+                        //TODO add the ablility to get the output of a processing element
+                        //update the next element
+                        //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                    }
                 }
             }
 
-        }// catch
-    
-        else {
+        } else {
             System.out.println("Error: Not ready to process.\nPlease select a .JSON file to start or a new one to continue.");
-    }
+        }
 
-}
+    }
 
 }
