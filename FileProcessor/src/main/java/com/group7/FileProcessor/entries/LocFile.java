@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  * @author shalev
  */
-public class LocFile extends Local {//couldn't name file or it would conflict with the File built in class
+public class LocFile extends Entry {//couldn't name file or it would conflict with the File built in class
 
     File file;
     Scanner scanner;
@@ -22,6 +22,7 @@ public class LocFile extends Local {//couldn't name file or it would conflict wi
         super(address);
         updateContents();
     }
+    protected LocFile(){}
     
     @Override
     public String getContents() throws FolderDoesNotContainTextException {
