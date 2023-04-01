@@ -4,6 +4,8 @@
  */
 package com.group7.FileProcessor.entries;
 
+import java.io.File;
+
 /**
  *
  * @author shale
@@ -12,9 +14,11 @@ public class RemFile extends LocFile{
     
     String accessKey;
     String repositoryId;
+    static int downloadnum=0;
     
     public RemFile(String address,String accessKey,String repositoryId){
-        super(address);
+        super(new File("fileDownload"+downloadnum+".txt").getAbsolutePath());
+        downloadnum++;
         this.accessKey = accessKey;
         this.repositoryId = repositoryId;
     }
