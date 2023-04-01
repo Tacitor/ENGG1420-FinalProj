@@ -9,7 +9,6 @@ import com.group7.FileProcessor.Util;
 import com.group7.FileProcessor.entries.Entry;
 import com.group7.FileProcessor.entries.FolderDoesNotContainTextException;
 import elements.ProcessingElement;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
