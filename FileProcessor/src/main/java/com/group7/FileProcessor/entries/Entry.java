@@ -13,9 +13,9 @@ import java.io.FileNotFoundException;
  */
 public abstract class Entry {
 
-    long length; // stores length in byte formatt
-    String address;
-    String contents;
+    protected long length; // stores length in byte formatt
+    protected String address;
+    protected String contents;
 
     public Entry(String address) {
         this.address = address;
@@ -76,4 +76,7 @@ public abstract class Entry {
         }
 
     }
+
+    @Override
+    public abstract Entry clone();
 }
