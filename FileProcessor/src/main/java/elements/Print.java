@@ -4,21 +4,22 @@
  */
 package elements;
 
-import com.group7.FileProcessor.pojo.EntriesPOJO;
-import java.util.ArrayList;
-
 /**
  *
  * @author keric
  */
-public abstract class Print {
-    private ArrayList<EntriesPOJO> inputEntries;
-    private ArrayList<EntriesPOJO> outputEntries;
-    
-    public abstract void print(ArrayList<EntriesPOJO> inputEntries);
+public class Print extends ProcessingElement {
 
-    public Print(ArrayList<EntriesPOJO> inputEntries) {
-        this.inputEntries = inputEntries;
+    /**
+     * Primary default constructor.
+     */
+    public Print() {
+        super();
     }
-    
+
+    @Override
+    public void process() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

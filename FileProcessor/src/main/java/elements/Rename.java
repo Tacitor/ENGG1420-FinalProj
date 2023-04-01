@@ -4,21 +4,33 @@
  */
 package elements;
 
-import com.group7.FileProcessor.pojo.EntriesPOJO;
-import java.util.ArrayList;
-
 /**
  *
  * @author keric
  */
-public abstract class Rename {
-    private ArrayList<EntriesPOJO> inputEntries;
-    private ArrayList<EntriesPOJO> outputEntries;
-    
-    public abstract void rename(ArrayList<EntriesPOJO> inputEntries,String Suffix);
+public class Rename extends ProcessingElement {
 
-    public Rename(ArrayList<EntriesPOJO> inputEntries) {
-        this.inputEntries = inputEntries;
+    //Attributes
+    private String suffix;
+
+    /**
+     * Primary default constructor.
+     */
+    public Rename() {
+        super();
     }
-    
+
+    @Override
+    public void process() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
 }
