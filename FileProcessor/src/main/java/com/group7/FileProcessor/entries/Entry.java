@@ -18,6 +18,10 @@ public abstract class Entry {
     String address;
     String contents;
     
+    public Entry(String address){
+        this.address = address;
+        
+    }
 
     public long getLength() {
         return length;
