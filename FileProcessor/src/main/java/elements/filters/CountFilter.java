@@ -23,17 +23,17 @@ public class CountFilter extends ProcessingElement {
 
     /**
      * Primary default constructor.
+     * @param key
+     * @param min
      */
-    public CountFilter() {
+    public CountFilter(String key, int min) {
         super();
+        setKey(key);
+        setMin(min);
     }
 
     @Override
     public void process() {        
-        // In case min input is out of range set to 1
-        if (min <= 0) {
-            min = 1;
-        }
         
         // Make a copy of the input of entries
         ArrayList<Entry> inputCopy = this.getInputEntries();
@@ -78,6 +78,7 @@ public class CountFilter extends ProcessingElement {
      * @param min
      */
     public void setMin(int min) {
+        // To make sure min is >= 0
         this.min = Util.getIntGreaterThan1(min);
     }
 
