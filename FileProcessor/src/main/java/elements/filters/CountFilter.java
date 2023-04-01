@@ -6,7 +6,13 @@
 package elements.filters;
 
 import com.group7.FileProcessor.Util;
+import com.group7.FileProcessor.entries.Entry;
+import com.group7.FileProcessor.entries.FolderDoesNotContainTextException;
 import elements.ProcessingElement;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +33,33 @@ public class CountFilter extends ProcessingElement {
 
     @Override
     public void process() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ArrayList<Entry> output = new ArrayList<>();
+        
+        // In case min input is out of range set to 1
+        if (min <= 0) {
+            min = 1;
+        }
+        
+        // Make a copy of the input of entries
+        ArrayList<Entry> inputCopy = this.getInputEntries();
+        ArrayList<Entry> input = new ArrayList<>();
+        for (int i = 0; i < inputCopy.size(); i++) {
+            input.add(inputCopy.get(i));
+        }
+        
+        for (int i = 0; i < input.size(); i++) {
+            //Check to make sure entry is a file
+            if (Util.isFile(input.get(i).getAddress()) == 1) {
+                try {
+                    if(contains(key, input.get(i).getContents(), min)){
+                        output.add(input.get(i));
+                    }
+                } catch (FolderDoesNotContainTextException ex) {
+                    Logger.getLogger(CountFilter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        setOutputEntries(output);
     }
 
     public String getKey() {
@@ -52,4 +84,31 @@ public class CountFilter extends ProcessingElement {
         this.min = Util.getIntGreaterThan1(min);
     }
 
+    private boolean contains(String check, String content, int min) {
+        boolean found = false;
+        int contentLen = content.length();
+        int checkLen = check.length();
+        int similarity;
+        int count = 0;
+        while (found == false) {
+            for (int i = 0; i < contentLen; i++) {
+                int j = 0;
+                if (content.charAt(i) == check.charAt(j)) {
+                    similarity = 0;
+                    while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
+                        similarity++;
+                        i++;
+                        j++;
+                    }
+                    if (similarity == checkLen) {
+                        count++;
+                    }
+                    if (count == min) {
+                        found = true;
+                    }
+                }
+            }
+        }
+        return found;
+    }
 }
