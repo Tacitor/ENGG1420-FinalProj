@@ -10,7 +10,7 @@ import java.io.File;
  *
  * @author shale
  */
-public class RemFolder extends LocFile{
+public class RemFolder extends LocFolder{
     
     String accessKey;
     String repositoryId;
