@@ -30,5 +30,24 @@ public class ScenarioPOJO {
     public void setProcessing_elements(ArrayList<ProcessingElementPOJO> processing_elements) {
         this.processing_elements = processing_elements;
     }
+public void print() {
+        //Print the date in the Scenario
+        System.out.println("Scenario name: " + getName());
 
+        for (ProcessingElementPOJO element : getProcessing_elements()) {
+            System.out.println("Processing Element Type:  " + element.getType());
+            System.out.println("    Input Entries: ");
+            for (EntriesPOJO entries : element.getInput_entries()) {
+                System.out.println("        type: " + entries.getType());
+                System.out.println("        path: " + entries.getPath());
+                System.out.println("        Laserfiche Repo ID: " + entries.getRepositoryId());
+                System.out.println("        Laserfiche Entry ID: " + entries.getEntryId());
+            }
+            System.out.println("    Parameters: ");
+            for (ParametersPOJO param : element.getParameters()) {
+                System.out.println("        name: " + param.getName());
+                System.out.println("        value: " + param.getValue());
+            }
+        }
+    }
 }

@@ -21,7 +21,6 @@ public class Sequencer {
 
     //Attributes
     private ArrayList<ProcessingElementPOJO> processingElements; //Type of ProcessingElementPOJO is temporary. Will need the ProcessingElement interface when it is ready
-    private String scenarioName;
 
     private boolean readyToProcess; //Control and protection var. If this is true then the sequencer may run. If this is false then there has not been a scenarioAsString stored, or the previous scenario is done can a new one needs to be selected.
     private String scenarioAsString; //The .JSON file that contains the senario as a String. Line for line. Passed in by the Main.java class.
@@ -67,70 +66,46 @@ public class Sequencer {
         //check if the senario may run
         if (readyToProcess) {
 
-            //try catch any exceptions
+            //Use Jackson to pasrse the scenario
+            //Code coppied from Scenario.java that Eric @Fluff-E wrote
+            ScenarioPOJO scenario = new ScenarioPOJO();
             try {
-
-                //Use Jackson to pasrse the scenario
-                //Code coppied from Scenario.java that Eric @Fluff-E wrote
                 JsonNode node = Json.parse(scenarioAsString);//make JsonNode
-                ScenarioPOJO scenario = Json.fromJson(node, ScenarioPOJO.class);//map to class
-
-                //exratract the name
-                scenarioName = scenario.getName();
-
-                //Print the name of the Scenario
-                System.out.println("Scenario name: " + scenario.getName());
-
-                //Get the list of processing elements
-                processingElements = scenario.getProcessing_elements();
-                
-                //=-=-=-=-=-=-=-=-=-=
-                //TODO this needs to map the POJOs to the Shalev Element
-                //=-=-=-=-=-=-=-=-=-=
-                
-                //loop through all the processing elements and run them
-                for (int i = 0 ; i < processingElements.size(); i++) {
-                    
-                    //TODO add the proccessing feature
-                    //run the current element
-                    //processingElements.get(i).process();
-                    
-                    //update the next element to have its input be the output of the other
-                    //check for out of bounds too
-                    if (i != (processingElements.size() - 1)) {
-                        
-                        //TODO add the ablility to get the output of a processing element
-                        //update the next element
-                        //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
-                    }
-                }
-
-                /*
-                //Code coppied from Scenario.java that Eric @Fluff-E wrote
-                for (ProcessingElementPOJO element : scenario.getProcessing_elements()) {
-                    System.out.println("Processing Element Type:  " + element.getType());
-                    System.out.println("    Input Entries: ");
-                    for (EntriesPOJO entries : element.getInput_entries()) {
-                        System.out.println("        type: " + entries.getType());
-                        System.out.println("        path: " + entries.getPath());
-                        System.out.println("        Laserfiche Repo ID: " + entries.getRepositoryId());
-                        System.out.println("        Laserfiche Entry ID: " + entries.getEntryId());
-                    }
-                    System.out.println("    Parameters: ");
-                    for (ParametersPOJO param : element.getParameters()) {
-                        System.out.println("        name: " + param.getName());
-                        System.out.println("        value: " + param.getValue());
-                    }
-                }
-                 */
+                scenario = Json.fromJson(node, ScenarioPOJO.class); //map to class
             } catch (IOException e) {
-                System.out.println("ERROR: IOException when reading parsing and reading the scenarioAsString in Sequencer.java\n" + e);
+                System.out.println("ERROR: IOException when mapping .Json file to ScenarioPOJO in Sequencer.java\n" + e);
+            }
+            scenario.print();
+
+            //try catch any exceptions
+            //Get the list of processing elements
+            processingElements = scenario.getProcessing_elements();
+
+            //=-=-=-=-=-=-=-=-=-=
+            //TODO this needs to map the POJOs to the Shalev Element
+            //=-=-=-=-=-=-=-=-=-=
+            //loop through all the processing elements and run them
+            for (int i = 0; i < processingElements.size(); i++) {
+
+                //TODO add the proccessing feature
+                //run the current element
+                //processingElements.get(i).process();
+                //update the next element to have its input be the output of the other
+                //check for out of bounds too
+                if (i != (processingElements.size() - 1)) {
+
+                    //TODO add the ablility to get the output of a processing element
+                    //update the next element
+                    //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                }
             }
 
-        } else {
+        }// catch
+    
+        else {
             System.out.println("Error: Not ready to process.\nPlease select a .JSON file to start or a new one to continue.");
-        }
-
     }
+
+}
 
 }
