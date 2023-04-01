@@ -22,6 +22,7 @@ public abstract class Entry {
         this.address = address;
         
     }
+    protected Entry(){}
 
     public long getLength() {
         return length;
@@ -30,6 +31,10 @@ public abstract class Entry {
     public String getAddress() {
         return address;
     }
+    protected void setAddress(String address){
+        this.address = address;
+    }
+    
 
     protected void setLength(long length) {
         this.length = length;

@@ -17,7 +17,12 @@ public class RemFolder extends LocFile{
     static int downloadnum=0;
     
     public RemFolder(String accessKey,String repositoryId){
-        super(new File("folddownload"+downloadnum+".txt").getAbsolutePath());
+        File fold = new File("C:\\ENG1420Group7FileProccessor\\folderdownload"+downloadnum);
+        boolean dir = true;
+        if (!fold.exists()){
+            dir = fold.mkdirs();
+        }
+        setAddress(fold.getAbsolutePath());
         downloadnum++;
         this.accessKey = accessKey;
         this.repositoryId = repositoryId;

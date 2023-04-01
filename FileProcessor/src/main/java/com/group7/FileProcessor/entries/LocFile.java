@@ -22,6 +22,7 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
         super(address);
         updateContents();
     }
+    protected LocFile(){}
     
     @Override
     public String getContents() throws FolderDoesNotContainTextException {

@@ -5,6 +5,8 @@
 package com.group7.FileProcessor.entries;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -16,12 +18,20 @@ public class RemFile extends LocFile{
     String repositoryId;
     static int downloadnum=0;
     
-    public RemFile(String address,String accessKey,String repositoryId){
-        super(new File("fileDownload"+downloadnum+".txt").getAbsolutePath());
+    public RemFile(String accessKey,String repositoryId) throws IOException{
+        File fold = new File("C:\\ENG1420Group7FileProccessor");
+        boolean dir = true;
+        if (!fold.exists()){
+            dir = fold.mkdir();
+        }
+        setAddress(fold.getAbsolutePath()+"\\filedownload"+downloadnum+".txt");
         downloadnum++;
+        File newFile = new File(getAddress());
+        newFile.createNewFile();
         this.accessKey = accessKey;
         this.repositoryId = repositoryId;
     }
+    
 
     public String getAccessKey() {
         return accessKey;

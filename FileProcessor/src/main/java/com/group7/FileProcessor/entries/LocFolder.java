@@ -28,6 +28,7 @@ public class LocFolder extends Entry {
         super(address);
         updateSubFiles();
     }
+    protected LocFolder(){}
 
     /**
      * a method to update the stored contents of the folder
