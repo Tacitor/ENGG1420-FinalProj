@@ -62,7 +62,7 @@ public class NameFilter extends ProcessingElement {
         int i = address.length() - 1;
         // Find start of file or folder name
         int nameLen = 0;
-        char ch = address.charAt(0);;
+        char ch = address.charAt(0);
         i--;
         while (ch != 92) {
             nameLen++;
@@ -73,5 +73,29 @@ public class NameFilter extends ProcessingElement {
             name += address.charAt(i);
         }
         return name;
+    }
+
+    private boolean contains(String check, String content) {
+        boolean found = false;
+        int contentLen = content.length();
+        int checkLen = check.length();
+        int similarity;
+        while (found == false) {
+            for (int i = 0; i < contentLen; i++) {
+                int j = 0;
+                if (content.charAt(i) == check.charAt(j)) {
+                    similarity = 0;
+                    while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
+                        similarity++;
+                        i++;
+                        j++;
+                    }
+                    if (similarity == checkLen) {
+                        found = true;
+                    }
+                }
+            }
+        }
+        return found;
     }
 }
