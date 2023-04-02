@@ -10,7 +10,7 @@ import com.group7.FileProcessor.Util;
  *
  * @author keric
  */
-public class List extends ProcessingElement {
+public class Lister extends ProcessingElement {
 
     //Attributes
     private int max;
@@ -18,7 +18,7 @@ public class List extends ProcessingElement {
     /**
      * Primary default constructor.
      */
-    public List() {
+    public Lister() {
         super();
     }
 
