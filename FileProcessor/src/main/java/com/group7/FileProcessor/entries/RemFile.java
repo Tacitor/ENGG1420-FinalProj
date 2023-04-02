@@ -33,11 +33,14 @@ public class RemFile extends LocFile{
     
     public RemFile(int entryid,String repositoryId) throws IOException{
 
-        
+        //instantiating client
         RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
                 servicePrincipalKey, accessKey);
+        
+        // getting entry name
         String name = client.getEntriesClient().getEntry(repositoryId, entryid, null).join().getName();
         
+        // creating a folder off the C drive to write files to
         File fold = new File("C:\\ENG1420Group7FileProccessor");
         boolean dir = true;
         if (!fold.exists()) {
@@ -46,6 +49,7 @@ public class RemFile extends LocFile{
 
         setAddress(fold.getAbsolutePath()+"\\"+name+".txt");
         
+        //downloading the entry of of the lazerfiche servers
         Consumer<InputStream> consumer = inputStream -> {
             File exportedFile = new File(getAddress());
             try (FileOutputStream outputStream = new FileOutputStream(exportedFile)) {
@@ -75,7 +79,6 @@ public class RemFile extends LocFile{
         client.close();
         updateContents();
         this.entryId = entryid;
-
         this.repositoryId = repositoryId;
     }
 
