@@ -51,6 +51,16 @@ public class LocFolder extends Entry {
         }
     }
 
+    public String[] getSubFiles() {
+        return subFiles;
+    }
+
+    public void setSubFiles(String[] subFiles) {
+        this.subFiles = subFiles;
+    }
+    
+    
+
    
     @Override
     public String getContents() throws FolderDoesNotContainTextException{

@@ -5,6 +5,7 @@
 package com.group7.FileProcessor.entries;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  *
@@ -12,7 +13,7 @@ import java.io.IOException;
  */
 public class testmain {
     public static void main(String[] args) throws IOException{
-        RemFile file = new RemFile(25,"r-0001d410ba56");
-        System.out.println(file.contents);
+        RemFolder file = new RemFolder(1,"r-0001d410ba56");
+        System.out.println(Arrays.toString(file.getSubFiles()));
     }
 }
