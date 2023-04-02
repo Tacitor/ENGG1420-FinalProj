@@ -101,7 +101,7 @@ public class RemFolder extends LocFolder {
         
     }*/
 
-    private void download(int entryId,RepositoryApiClient client) {
+    private void download(int entryId,RepositoryApiClient client,File folder) {
 
         
 
@@ -114,14 +114,14 @@ public class RemFolder extends LocFolder {
         List<Entry> entries = result.getValue();
         for (Entry childEntry : entries) {
             if (client.getEntriesClient().getEntry(repositoryId, childEntry.getId(), null).join().getEntryType().toString().equals("Folder")) {
-                
-                
-                download(childEntry.getId(),client);
+                name = client.getEntriesClient().getEntry(repositoryId, childEntry.getId(), null).join().getName();
+                File subFolder =  new File(folder.getAbsolutePath()+"\\"+name);
+                download(childEntry.getId(),client,subFolder);
             } else {
                 
                 name = client.getEntriesClient().getEntry(repositoryId, childEntry.getId(), null).join().getName();
                 
-                String str = getAddress()+"\\"+name+".txt";
+                String str = folder.getAbsolutePath()+"\\"+name+".txt";
                 Consumer<InputStream> consumer = inputStream -> {
                     
                     File exportedFile = new File(str);
