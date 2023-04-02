@@ -4,6 +4,9 @@
  */
 package elements;
 
+import java.util.ArrayList;
+import com.group7.FileProcessor.entries.Entry;
+
 /**
  *
  * @author keric
@@ -22,7 +25,20 @@ public class Rename extends ProcessingElement {
 
     @Override
     public void process() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ArrayList<Entry> sufName = this.getInputEntries();
+        ArrayList<Entry> output = new ArrayList();
+        for (Entry e : sufName) {
+            String str = e.getAddress();
+            Entry renamedEntry = e.clone();
+            int index = str.lastIndexOf(".");
+            if (index != -1) {
+                str = str.substring(0, index - 1) + suffix + '.' + str.substring(index + 1);
+            }
+            renamedEntry.setAddress(str);
+            output.add(renamedEntry);
+        }
+
+        this.setOutputEntries(output);
     }
 
     public String getSuffix() {
