@@ -130,7 +130,7 @@ public class Sequencer {
 
                     if (element.getType().equalsIgnoreCase("Print")) {
                         //should loop through entries array
-                        processEntries.add(entryGenny.addEntry(entries.get(0)));//get path, send to Genny, add return to entries
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
                         //
                         System.out.println("Run Print element");
                         print.setInputEntries(processEntries);
@@ -138,6 +138,9 @@ public class Sequencer {
                         processEntries = print.getOutputEntries();
 
                     } else if (element.getType().equalsIgnoreCase("NameFilter")) {
+                        //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//get path, send to Genny, add return to entries
+                        //
                         System.out.println("Run NameFilter element with Key: " + params.get(0).getValue());
                         nameFilter.setInputEntries(processEntries);
                         nameFilter.setKey(params.get(0).getValue());
@@ -145,6 +148,9 @@ public class Sequencer {
                         processEntries = nameFilter.getOutputEntries();
 
                     } else if (element.getType().equalsIgnoreCase("LengthFilter")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
                         System.out.println("Run LengthFilter element with Length: " + params.get(0).getValue() + " Operator: " + params.get(1).getValue());
                         lengthFilter.setInputEntries(processEntries);
                         lengthFilter.setLength(Long.parseLong(params.get(0).getValue()));//long.parse turns string to long
@@ -153,6 +159,9 @@ public class Sequencer {
                         processEntries = lengthFilter.getOutputEntries();
 
                     } else if (element.getType().equalsIgnoreCase("ContentFilter")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
                         System.out.println("Run ContentFilter element with Key: " + params.get(0).getValue());
                         contentFilter.setInputEntries(processEntries);
                         contentFilter.setKey(params.get(0).getValue());
@@ -160,6 +169,9 @@ public class Sequencer {
                         processEntries = contentFilter.getOutputEntries();
 
                     } else if (element.getType().equalsIgnoreCase("CountFilter")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
                         System.out.println("Run CountFilter element with Key: " + params.get(0).getValue() + " Min: " + params.get(1).getValue());
                         countFilter.setInputEntries(processEntries);
                         countFilter.setKey(params.get(0).getValue());
@@ -167,6 +179,9 @@ public class Sequencer {
                         processEntries = countFilter.getOutputEntries();
 
                     } else if (element.getType().equalsIgnoreCase("Split")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
                         System.out.println("Run Split element with Lines: " + params.get(0).getValue());
                         split.setInputEntries(processEntries);
                         split.setLines(Integer.parseInt(params.get(0).getValue()));
@@ -174,6 +189,9 @@ public class Sequencer {
                         processEntries = split.getOutputEntries();
 
                     } else if (element.getType().equalsIgnoreCase("List")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
                         System.out.println("Run List element with Max: " + params.get(0).getValue());
                         list.setInputEntries(processEntries);
                         list.setMax(Integer.parseInt(params.get(0).getValue()));
@@ -181,6 +199,9 @@ public class Sequencer {
                         processEntries = list.getOutputEntries();
 
                     } else if (element.getType().equalsIgnoreCase("Rename")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
                         System.out.println("Run Rename element with Suffix: " + params.get(0).getValue());
                         rename.setInputEntries(processEntries);
                         rename.setSuffix(params.get(0).getValue());

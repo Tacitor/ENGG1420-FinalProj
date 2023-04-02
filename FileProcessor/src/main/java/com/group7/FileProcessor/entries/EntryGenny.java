@@ -20,20 +20,24 @@ public class EntryGenny {
     private String path;
     private String repositoryId;
     private String entryId;
-    int wtf;
 
     public Entry addEntry(EntriesPOJO entry) {
         if (entry.getType().equalsIgnoreCase("remte")) {
             System.out.println("Remote entry.");
-        } else {         
+        } else {//assume local
             path = entry.getPath();
             System.out.println("Local entry.");
             //path = Paths.get(entry.getPath());//get path as string use Paths.get to convert string to path
-            if (Util.isFile(path) > 0) {//If path is valid make entry object
+            if (Util.isFile(path) > 0) {//If path is valid file make entry object
                 LocFile locFile = new LocFile(path);
                 System.out.println("LocFile created");
                 return locFile;
+            } else if (Util.isDirectory(path) > 0) {
+                LocFolder locFolder = new LocFolder(path);
+                System.out.println("LocFile created");
+                return locFolder;
             }
+
         }
         return null;
 

@@ -34,6 +34,14 @@ public abstract class Util {
         //return 
         //return path.substring(path.lastIndexOf(File.separator), path.length()).contains(".");
     }
+    public static int isDirectory(String path){
+        File file = new File(path);
+                if(file.exists()){
+                    return file.isDirectory() ? 1:0;
+                }else{
+                    return -1;
+                }
+    }
 
     /**
      * Ensure a given int is greater than 0. Default to 1 for any 0 parameter.
