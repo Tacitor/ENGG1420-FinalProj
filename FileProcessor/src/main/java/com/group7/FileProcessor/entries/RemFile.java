@@ -28,10 +28,12 @@ public class RemFile extends LocFile{
     private String repositoryId;
     private static String servicePrincipalKey = "z6N-YywpamJ5Dr227qKb";
     private static String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiY2M4NWRlZGUtMGIzZS00ZGIyLTkyNzYtOWY5N2EzMGY2ZWZlIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInh0UFBLcl8zbGVSa1dFQi1QaU9yNkFDMzJETjRRdDd0VmI4amE4VHNwRTQiLAoJCSJ4IjogImtsZl9IOWgxMTN6dmRHcjZ0Rk5MRC1wYk15YWJWUjZzTk5Fb2l1d2NmSTgiLAoJCSJ5IjogInVWcUR4NlRSV0JBaWZTbXJ6NG9uX2NXeEZlTDVPc29xM2V6U0ZQbWtkRk0iLAoJCSJkIjogInJfMHZXYnB6Q2Z2YUYzYXZQeERhNzdKTzItUkRrSWctRnpHWENrbFRNQzgiLAoJCSJpYXQiOiAxNjc3Mjk3NTA4Cgl9Cn0=";
+    //inputing our group acces key and converting it into an AccessKey object
     private static AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
     
     public RemFile(int entryid,String repositoryId) throws IOException{
 
+        
         RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
                 servicePrincipalKey, accessKey);
         String name = client.getEntriesClient().getEntry(repositoryId, entryid, null).join().getName();
@@ -77,7 +79,7 @@ public class RemFile extends LocFile{
         this.repositoryId = repositoryId;
     }
 
-    public int getAccessKey() {
+    public int getEntryId() {
         return entryId;
     }
 
