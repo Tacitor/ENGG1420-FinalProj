@@ -20,6 +20,7 @@ public class NameFilter extends ProcessingElement {
 
     /**
      * Primary default constructor.
+     *
      * @param key
      */
     public NameFilter(String key) {
@@ -37,9 +38,14 @@ public class NameFilter extends ProcessingElement {
         }
         // Ouput of entries
         ArrayList<Entry> output = new ArrayList<>();
-        
-        
-        
+
+        for (int i = 0; i < input.size(); i++) {
+            String name = getName(input.get(i).getAddress());
+            if (contains(key, name)) {
+
+            }
+        }
+
         setOutputEntries(output);
     }
 
@@ -50,32 +56,22 @@ public class NameFilter extends ProcessingElement {
     public void setKey(String key) {
         this.key = key;
     }
-    private boolean contains(String check, String content, int min) {
-        boolean found = false;
-        int contentLen = content.length();
-        int checkLen = check.length();
-        int similarity;
-        int count = 0;
-        while (found == false) {
-            for (int i = 0; i < contentLen; i++) {
-                int j = 0;
-                if (content.charAt(i) == check.charAt(j)) {
-                    similarity = 0;
-                    while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
-                        similarity++;
-                        i++;
-                        j++;
-                    }
-                    if (similarity == checkLen) {
-                        count++;
-                    }
-                    if (count == min) {
-                        found = true;
-                    }
-                }
-            }
-        }
-        return found;
-    }
 
+    private String getName(String address) {
+        String name = "";
+        int i = address.length() - 1;
+        // Find start of file or folder name
+        int nameLen = 0;
+        char ch = address.charAt(0);;
+        i--;
+        while (ch != 92) {
+            nameLen++;
+            ch = address.charAt(i);
+            i--;
+        }
+        for (int j = address.length() - nameLen; j < address.length(); j++) {
+            name += address.charAt(i);
+        }
+        return name;
+    }
 }
