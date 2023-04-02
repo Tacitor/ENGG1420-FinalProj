@@ -6,10 +6,19 @@
 package com.group7.FileProcessor;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.group7.FileProcessor.pojo.ParametersPOJO;
 import com.group7.FileProcessor.pojo.ProcessingElementPOJO;
 import com.group7.FileProcessor.pojo.ScenarioPOJO;
+import elements.Print;
+import elements.Rename;
+import elements.Split;
+import elements.filters.ContentFilter;
+import elements.filters.CountFilter;
+import elements.filters.LengthFilter;
+import elements.filters.NameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -92,22 +101,74 @@ public class Sequencer {
                 //=-=-=-=-=-=-=-=-=-=
                 //TODO this needs to map the POJOs to the Shalev Element
                 //=-=-=-=-=-=-=-=-=-=
-                
                 //loop through all the processing elements and run them
-                for (int i = 0; i < processingElements.size(); i++) {
+                //for (int i = 0; i < processingElements.size(); i++) {
+                //!!!make object for each element ahead, or use static methods?
+                //for eachloop through processing elements
+                //Identify string type string
+                NameFilter nameFilter = new NameFilter();
+                LengthFilter lengthFilter = new LengthFilter();
+                ContentFilter contentFilter = new ContentFilter();
+                CountFilter countFilter = new CountFilter();
+                Split split = new Split();
+                //List list = new List();
+                Rename rename = new Rename();
+                Print print = new Print();
 
-                    //TODO add the proccessing feature
-                    //run the current element
-                    //processingElements.get(i).process();
-                    //update the next element to have its input be the output of the other
-                    //check for out of bounds too
-                    if (i != (processingElements.size() - 1)) {
+                ArrayList<ParametersPOJO> params;//variable for storing parameters retrieved from scenarioPOJO
 
-                        //TODO add the ablility to get the output of a processing element
-                        //update the next element
-                        //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                for (ProcessingElementPOJO element : processingElements) {
+                    params = element.getParameters();//ArrayList of paramaters
+                    //Identify element type and assign paramaters to element object using setters then call process()
+                    if (element.getType().equalsIgnoreCase("Print")) {
+                        System.out.println("Run Print element with parameters: ");
+                        //assign paramater to element
+                        //setInputEntries
+                        //run process()
+                        //Entries output
+                    } else if (element.getType().equalsIgnoreCase("NameFilter")) {
+
+                        System.out.println("Run NameFilter element with Key: " + params.get(0).getValue());
+                        nameFilter.setKey(params.get(0).getValue());
+                        nameFilter.process();
+
+                    } else if (element.getType().equalsIgnoreCase("LengthFilter")) {
+                        System.out.println("Run LengthFilter element with Length: " + params.get(0).getValue() + " Operator: " + params.get(1).getValue());
+                        lengthFilter.setLength(Long.parseLong(params.get(0).getValue()));//long.parse turns string to long
+                        lengthFilter.setOperator(params.get(1).getValue());
+                        lengthFilter.process();
+
+                    } else if (element.getType().equalsIgnoreCase("ContentFilter")) {
+                        System.out.println("Run ContentFilter element with parameters: ");
+
+                    } else if (element.getType().equalsIgnoreCase("CountFilter")) {
+                        System.out.println("Run CountFilter element with parameters");
+
+                    } else if (element.getType().equalsIgnoreCase("Split")) {
+                        System.out.println("Run Split element with parameters");
+
+                    } else if (element.getType().equalsIgnoreCase("List")) {
+                        System.out.println("Run List element with parameters");
+
+                    } else if (element.getType().equalsIgnoreCase("Rename")) {
+                        System.out.println("Run Rename element with parameters");
+
                     }
+
                 }
+
+                //call
+                //TODO add the proccessing feature
+                //run the current element
+                //processingElements.get(i).process();
+                //update the next element to have its input be the output of the other
+                //check for out of bounds too
+                //if (i != (processingElements.size() - 1)) {
+                //TODO add the ablility to get the output of a processing element
+                //update the next element
+                //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                //}
+                //}
             }
 
         } else {
