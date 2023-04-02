@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  */
 public class LocFolder extends Entry {
 
-    String[] subFiles;//coltains the filepaths of all subFiles and subfolders, the contents of subfolders is also stored
+    String[] subFiles;//contains the filepaths of all subFiles and subfolders, the contents of subfolders is also stored
 
     /**
      * constructor for a local folder
@@ -26,9 +26,10 @@ public class LocFolder extends Entry {
      */
     public LocFolder(String address) {
         super(address);
+        //updates the array of subfiles using the address stored in memory
         updateSubFiles();
     }
-    protected LocFolder(){}
+    protected LocFolder(){}//default protected constructor to be used bythe remote classes since they generate their own addresses
 
     /**
      * a method to update the stored contents of the folder
@@ -50,6 +51,16 @@ public class LocFolder extends Entry {
             e.printStackTrace();
         }
     }
+
+    public String[] getSubFiles() {
+        return subFiles;
+    }
+
+    public void setSubFiles(String[] subFiles) {
+        this.subFiles = subFiles;
+    }
+    
+    
 
    
     @Override
