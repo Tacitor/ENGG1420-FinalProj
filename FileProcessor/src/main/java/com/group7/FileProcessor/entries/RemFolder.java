@@ -23,7 +23,6 @@ import java.util.ArrayList;
  * @author shale
  */
 public class RemFolder extends LocFolder {
-
     
     int entryId;
     String repositoryId;
@@ -88,6 +87,7 @@ public class RemFolder extends LocFolder {
         String name = client.getEntriesClient().getEntry(repositoryId, entryId, null).join().getName();
 
         File fold = new File("C:\\ENG1420Group7FileProccessor\\" + name);
+        
         boolean dir = true;
         if (!fold.exists()) {
             dir = fold.mkdirs();
@@ -167,6 +167,11 @@ public class RemFolder extends LocFolder {
 
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
+    }
+
+    @Override
+    public Entry clone() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

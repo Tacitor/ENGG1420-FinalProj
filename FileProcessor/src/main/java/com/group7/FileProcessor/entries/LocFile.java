@@ -16,33 +16,34 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
 
     File file;
     Scanner scanner;
-    
 
     public LocFile(String address) {
         super(address);
         updateContents();
     }
-    protected LocFile(){}
-    
+
+    protected LocFile() {
+    }
+
     @Override
     public String getContents() throws FolderDoesNotContainTextException {
         return contents;
     }
-    
-    private void setContents(String contents) {
+
+    protected void setContents(String contents) {
         this.contents = contents;
     }
-    
+
     /**
-     * a method to update the stored contents, works similar to a refresh to check for any changes to the file
+     * a method to update the stored contents, works similar to a refresh to
+     * check for any changes to the file
      */
-    public void updateContents(){
+    public void updateContents() {
         try {
             file = new File(address);
-            
+
             scanner = new Scanner(file);
-            
-            
+
             //setting contents
             StringBuilder temp = new StringBuilder();
             while (scanner.hasNext()) {
@@ -55,8 +56,16 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
             e.printStackTrace();
         }
     }
-    
 
-    
+    @Override
+    public LocFile clone() {
+        LocFile newLocFile = new LocFile();
+        
+        newLocFile.setAddress(address);
+        newLocFile.setContents(contents);
+        newLocFile.setLength(length);
+
+        return newLocFile;
+    }
 
 }
