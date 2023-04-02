@@ -27,9 +27,7 @@ public class EntryGenny {
             System.out.println("Remote entry.");
         } else {         
             path = entry.getPath();
-            wtf = Util.isFile(path);
-            System.out.println("Local entry.wtf = " + wtf);
-            System.out.println(path);
+            System.out.println("Local entry.");
             //path = Paths.get(entry.getPath());//get path as string use Paths.get to convert string to path
             if (Util.isFile(path) > 0) {//If path is valid make entry object
                 LocFile locFile = new LocFile(path);
