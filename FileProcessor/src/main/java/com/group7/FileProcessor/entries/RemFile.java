@@ -21,14 +21,15 @@ import java.io.IOException;
  *
  * @author shale
  */
+
 public class RemFile extends LocFile{
     
-    int entryId;
-    String repositoryId;
-    static String servicePrincipalKey = "z6N-YywpamJ5Dr227qKb";
-    static String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiY2M4NWRlZGUtMGIzZS00ZGIyLTkyNzYtOWY5N2EzMGY2ZWZlIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInh0UFBLcl8zbGVSa1dFQi1QaU9yNkFDMzJETjRRdDd0VmI4amE4VHNwRTQiLAoJCSJ4IjogImtsZl9IOWgxMTN6dmRHcjZ0Rk5MRC1wYk15YWJWUjZzTk5Fb2l1d2NmSTgiLAoJCSJ5IjogInVWcUR4NlRSV0JBaWZTbXJ6NG9uX2NXeEZlTDVPc29xM2V6U0ZQbWtkRk0iLAoJCSJkIjogInJfMHZXYnB6Q2Z2YUYzYXZQeERhNzdKTzItUkRrSWctRnpHWENrbFRNQzgiLAoJCSJpYXQiOiAxNjc3Mjk3NTA4Cgl9Cn0=";
-    static AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
-    static int downloadnum=0;
+    private int entryId;
+    private String repositoryId;
+    private static String servicePrincipalKey = "z6N-YywpamJ5Dr227qKb";
+    private static String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiY2M4NWRlZGUtMGIzZS00ZGIyLTkyNzYtOWY5N2EzMGY2ZWZlIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInh0UFBLcl8zbGVSa1dFQi1QaU9yNkFDMzJETjRRdDd0VmI4amE4VHNwRTQiLAoJCSJ4IjogImtsZl9IOWgxMTN6dmRHcjZ0Rk5MRC1wYk15YWJWUjZzTk5Fb2l1d2NmSTgiLAoJCSJ5IjogInVWcUR4NlRSV0JBaWZTbXJ6NG9uX2NXeEZlTDVPc29xM2V6U0ZQbWtkRk0iLAoJCSJkIjogInJfMHZXYnB6Q2Z2YUYzYXZQeERhNzdKTzItUkRrSWctRnpHWENrbFRNQzgiLAoJCSJpYXQiOiAxNjc3Mjk3NTA4Cgl9Cn0=";
+    private static AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
+    private static int downloadnum=0;
     
     public RemFile(int entryid,String repositoryId) throws IOException{
 
@@ -36,12 +37,12 @@ public class RemFile extends LocFile{
                 servicePrincipalKey, accessKey);
         String name = client.getEntriesClient().getEntry(repositoryId, entryid, null).join().getName();
         
-        
         File fold = new File("C:\\ENG1420Group7FileProccessor");
         boolean dir = true;
-        if (!fold.exists()){
+        if (!fold.exists()) {
             dir = fold.mkdir();
         }
+
         setAddress(fold.getAbsolutePath()+"\\"+name+".txt");
         
         Consumer<InputStream> consumer = inputStream -> {
@@ -73,9 +74,9 @@ public class RemFile extends LocFile{
         client.close();
         updateContents();
         this.entryId = entryid;
+
         this.repositoryId = repositoryId;
     }
-    
 
     public int getAccessKey() {
         return entryId;
@@ -92,5 +93,29 @@ public class RemFile extends LocFile{
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
     }
-    
+
+    @Override
+    public RemFile clone() {
+        //create the new remote file
+        RemFile newRemFile;
+
+        //try catch the new file creation
+        try {
+            newRemFile = new RemFile(entryId, repositoryId);
+            
+            //add the other entry information
+            newRemFile.setAddress(address);
+            newRemFile.setLength(length);
+            newRemFile.setContents(contents);
+
+        } catch (IOException e) {
+            System.out.println("IOException in RemFile using clone(). Unable to create new Remote Entry. Returning null.\n" + e);
+
+            //return it as a null object because of the exception
+            newRemFile = null;
+        }
+
+        return newRemFile;
+    }
+
 }
