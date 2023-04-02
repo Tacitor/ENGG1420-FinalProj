@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  *
  * @author shale
  */
-public class LocFolder extends Local {
+public class LocFolder extends Entry {
 
     String[] subFiles;//coltains the filepaths of all subFiles and subfolders, the contents of subfolders is also stored
 
@@ -28,6 +28,7 @@ public class LocFolder extends Local {
         super(address);
         updateSubFiles();
     }
+    protected LocFolder(){}
 
     /**
      * a method to update the stored contents of the folder
