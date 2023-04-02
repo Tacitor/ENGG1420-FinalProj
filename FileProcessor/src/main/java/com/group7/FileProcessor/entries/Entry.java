@@ -47,7 +47,7 @@ public abstract class Entry {
     }
 
     public abstract String getContents() throws FolderDoesNotContainTextException;
-
+    
     /**
      * a method to get the stored size of a file or folder on disk
      *

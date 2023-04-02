@@ -31,7 +31,7 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
         return contents;
     }
 
-    protected void setContents(String contents) {
+    public void setContents(String contents) {
         this.contents = contents;
     }
 
