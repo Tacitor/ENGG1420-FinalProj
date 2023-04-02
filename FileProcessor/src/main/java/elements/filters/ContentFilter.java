@@ -9,8 +9,6 @@ import com.group7.FileProcessor.entries.Entry;
 import com.group7.FileProcessor.entries.FolderDoesNotContainTextException;
 import elements.ProcessingElement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -61,21 +59,25 @@ public class ContentFilter extends ProcessingElement {
     }
     
     private boolean contains(String check, String content) {
-        boolean found = false;
+        
+        boolean found = false;// Has check been found
         int contentLen = content.length();
         int checkLen = check.length();
         int similarity;
-        while (found == false) {
+        
+        while (found == false) { // Ends when check is found
             for (int i = 0; i < contentLen; i++) {
                 int j = 0;
-                if (content.charAt(i) == check.charAt(j)) {
+                if (content.charAt(i) == check.charAt(j)) { // Checks for first char similarity between both strings
                     similarity = 0;
+                    
+                    // Loop through both strings to check for continuing similarites
                     while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
                         similarity++;
                         i++;
                         j++;
                     }
-                    if (similarity == checkLen) {
+                    if (similarity == checkLen) { // Check has been found
                         found = true;
                     }
                 }
