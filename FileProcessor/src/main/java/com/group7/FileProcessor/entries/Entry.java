@@ -22,8 +22,7 @@ public abstract class Entry {
 
     }
 
-    protected Entry() {
-    }
+    protected Entry(){}//default protected constructor to be used bythe remote classes since they generate their own addresses
 
     public long getLength() {
         return length;

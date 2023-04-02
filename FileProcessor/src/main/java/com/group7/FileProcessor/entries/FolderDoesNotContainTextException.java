@@ -8,4 +8,6 @@ package com.group7.FileProcessor.entries;
  *
  * @author shale
  */
+
+//custome checked exception for easier debugging
 public class FolderDoesNotContainTextException extends Exception {}
