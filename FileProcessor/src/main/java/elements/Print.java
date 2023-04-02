@@ -4,6 +4,9 @@
  */
 package elements;
 
+import com.group7.FileProcessor.entries.Entry;
+import java.util.ArrayList;
+
 /**
  *
  * @author keric
@@ -19,7 +22,14 @@ public class Print extends ProcessingElement {
 
     @Override
     public void process() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //Grab th e input ArrayList to make things easier
+        ArrayList<Entry> inputEntries = this.getInputEntries();
+
+        //loop through the input entries
+        for (Entry e : inputEntries) {
+            //print its information
+            System.out.println(e.toString());
+        }
     }
 
 }

@@ -23,7 +23,8 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
         updateContents();
     }
 
-    protected LocFile(){}//default protected constructor to be used bythe remote classes since they generate their own addresses 
+    protected LocFile() {
+    }//default protected constructor to be used bythe remote classes since they generate their own addresses 
 
     @Override
     public String getContents() throws FolderDoesNotContainTextException {
@@ -59,17 +60,38 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
 
     /**
      * a method to create a clone of a locFile instance
+     *
      * @return returns the clone
      */
     @Override
     public LocFile clone() {
         LocFile newLocFile = new LocFile();
-        
+
         newLocFile.setAddress(address);
         newLocFile.setContents(contents);
         newLocFile.setLength(length);
 
         return newLocFile;
+    }
+
+    /**
+     * Return a string representation of the Local File that complies with the
+     * requirements of the Print Processing Element in the Project Description.
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+
+        int index = address.lastIndexOf(".");
+
+        //If there is an issue with finding where the name of the file is just length to the whole file
+        if (index == -1) {
+            index = address.length();
+        }
+
+        return "Local File:\tName: " + address.substring(0, index - 1)
+                + "\tLength: " + length + "\tAbsolute path: " + address;
     }
 
 }

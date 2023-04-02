@@ -21,25 +21,24 @@ import java.io.IOException;
  *
  * @author shale
  */
+public class RemFile extends LocFile {
 
-public class RemFile extends LocFile{
-    
     private int entryId;
     private String repositoryId;
     private static String servicePrincipalKey = "z6N-YywpamJ5Dr227qKb";
     private static String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiY2M4NWRlZGUtMGIzZS00ZGIyLTkyNzYtOWY5N2EzMGY2ZWZlIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInh0UFBLcl8zbGVSa1dFQi1QaU9yNkFDMzJETjRRdDd0VmI4amE4VHNwRTQiLAoJCSJ4IjogImtsZl9IOWgxMTN6dmRHcjZ0Rk5MRC1wYk15YWJWUjZzTk5Fb2l1d2NmSTgiLAoJCSJ5IjogInVWcUR4NlRSV0JBaWZTbXJ6NG9uX2NXeEZlTDVPc29xM2V6U0ZQbWtkRk0iLAoJCSJkIjogInJfMHZXYnB6Q2Z2YUYzYXZQeERhNzdKTzItUkRrSWctRnpHWENrbFRNQzgiLAoJCSJpYXQiOiAxNjc3Mjk3NTA4Cgl9Cn0=";
     //inputing our group acces key and converting it into an AccessKey object
     private static AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
-    
-    public RemFile(int entryid,String repositoryId) throws IOException{
+
+    public RemFile(int entryid, String repositoryId) throws IOException {
 
         //instantiating client
         RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
                 servicePrincipalKey, accessKey);
-        
+
         // getting entry name
         String name = client.getEntriesClient().getEntry(repositoryId, entryid, null).join().getName();
-        
+
         // creating a folder off the C drive to write files to
         File fold = new File("C:\\ENG1420Group7FileProccessor");
         boolean dir = true;
@@ -47,8 +46,8 @@ public class RemFile extends LocFile{
             dir = fold.mkdir();
         }
 
-        setAddress(fold.getAbsolutePath()+"\\"+name+".txt");
-        
+        setAddress(fold.getAbsolutePath() + "\\" + name + ".txt");
+
         //downloading the entry of of the lazerfiche servers
         Consumer<InputStream> consumer = inputStream -> {
             File exportedFile = new File(getAddress());
@@ -71,7 +70,7 @@ public class RemFile extends LocFile{
                 }
             }
         };
-        
+
         client.getEntriesClient()
                 .exportDocument(repositoryId, entryid, null, consumer)
                 .join();
@@ -106,7 +105,7 @@ public class RemFile extends LocFile{
         //try catch the new file creation
         try {
             newRemFile = new RemFile(entryId, repositoryId);
-            
+
             //add the other entry information
             newRemFile.setAddress(address);
             newRemFile.setLength(length);
@@ -120,6 +119,26 @@ public class RemFile extends LocFile{
         }
 
         return newRemFile;
+    }
+
+    /**
+     * Return a string representation of the Remote File that complies with the
+     * requirements of the Print Processing Element in the Project Description.
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+
+        int index = address.lastIndexOf(".");
+
+        //If there is an issue with finding where the name of the file is just length to the whole file
+        if (index == -1) {
+            index = address.length();
+        }
+
+        return "Remote File:\tEntryID: " + entryId + "\tName: " + address.substring(0, index - 1)
+                + "\tLength: " + length + "\tAbsolute path: [ERROR]";
     }
 
 }
