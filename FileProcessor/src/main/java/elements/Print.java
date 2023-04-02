@@ -19,7 +19,8 @@ public class Print extends ProcessingElement {
 
     @Override
     public void process() {
-        throw new UnsupportedOperationException("Not supported yet.");
+System.out.println("SUPPORT THIS PRINT!");
+//throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

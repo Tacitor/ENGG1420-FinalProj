@@ -6,10 +6,8 @@
 package com.group7.FileProcessor;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.group7.FileProcessor.entries.Entry;
-import com.group7.FileProcessor.pojo.ParametersPOJO;
-import com.group7.FileProcessor.pojo.ProcessingElementPOJO;
-import com.group7.FileProcessor.pojo.ScenarioPOJO;
+import com.group7.FileProcessor.entries.*;
+import com.group7.FileProcessor.pojo.*;
 import elements.Lister;
 import elements.Print;
 import elements.Rename;
@@ -103,6 +101,9 @@ public class Sequencer {
                 //=-=-=-=-=-=-=-=-=-=
                 //TODO this needs to map the POJOs to the Shalev Element
                 //ENTRYGENNY
+                
+                
+                //read type if local read path, test if file or folder
                 //Reads entrys from scenarioPOJO to create the arraylist of Entries
                 //=-=-=-=-=-=-=-=-=-=
                 //Instantiate each processing element
@@ -116,15 +117,22 @@ public class Sequencer {
                 Print print = new Print();
 
                 ArrayList<ParametersPOJO> params;//variable for storing parameters retrieved from scenarioPOJO
-                ArrayList<Entry> processEntries;//!!!assign to first element entires!!!??? NEED ENTRYGENNY!
+                ArrayList<EntriesPOJO> entries;//variable for entries information from json
+                
+                ArrayList<Entry> processEntries = new ArrayList();
+                EntryGenny entryGenny = new EntryGenny();
 
                 //Sequence Processing Elements
                 for (ProcessingElementPOJO element : processingElements) {
                     params = element.getParameters();//ArrayList of paramaters
+                    entries = element.getInput_entries();
                     //Identify element type and assign paramaters to element object using setters then call process()
 
                     if (element.getType().equalsIgnoreCase("Print")) {
-                        System.out.println("Run Print element with parameters: ");
+                        //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run Print element");
                         print.setInputEntries(processEntries);
                         print.process();
                         processEntries = print.getOutputEntries();
