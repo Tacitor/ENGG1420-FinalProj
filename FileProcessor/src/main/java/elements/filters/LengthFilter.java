@@ -1,5 +1,5 @@
 /*
- * Lukas Krampitz
+ * Mackenzie Alec McBurney
  * Apr 1, 2023
  * Filter Processing Element that searches the length (size on disk in Bytes) of Entries
  */
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Tacitor
+ * @author kyure
  */
 public class LengthFilter extends ProcessingElement {
 

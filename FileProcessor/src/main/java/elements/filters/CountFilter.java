@@ -1,5 +1,5 @@
 /*
- * Lukas Krampitz
+ * Mackenzie Alec McBurney
  * Apr 1, 2023
  * Filter Processing Element that searches the contents of Entries for the number of occourences of a string
  */
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Tacitor
+ * @author kyure
  */
 public class CountFilter extends ProcessingElement {
 
@@ -115,15 +115,15 @@ public class CountFilter extends ProcessingElement {
         
         while (found == false) { // Ends when check is found min times
             for (int i = 0; i < contentLen; i++) {
-                int j = 0;
+                int j = 0; // check index
                 if (content.charAt(i) == check.charAt(j)) { // Checks for first char similarity between both strings
                     similarity = 0;
                     
                     // Loop through both strings to check for continuing similarites
                     while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
                         similarity++;
-                        i++;
-                        j++;
+                        i++; // content index
+                        j++; // check index
                     }
                     if (similarity == checkLen) {
                         count++; // Check has been found 

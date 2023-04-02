@@ -1,5 +1,5 @@
 /*
- * Lukas Krampitz
+ * Mackenzie Alec McBurney
  * Apr 1, 2023
  * Filter Processing Element that searches the names of Entries
  */
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Tacitor
+ * @author kyure
  */
 public class NameFilter extends ProcessingElement {
 
@@ -70,16 +70,17 @@ public class NameFilter extends ProcessingElement {
         String name = "";
         int i = address.length() - 1; // Final index of the address
         int nameLen = 0; 
-        char ch = address.charAt(0); // Make sure the while loop will start
+        char ch = address.charAt(i); // Make sure the while loop will start
         i--;
-        while (ch != 92) { // Get the length of the name of the entry
+        // Cycles through address backwards to find the length of the entry name
+        while (ch != 92) {
             nameLen++;
             ch = address.charAt(i);
             i--;
         }
         // Put the name of the address togther in a string
         for (int j = address.length() - nameLen; j < address.length(); j++) {
-            name += address.charAt(i);
+            name += address.charAt(j);
         }
         return name;
     }
@@ -99,15 +100,15 @@ public class NameFilter extends ProcessingElement {
         
         while (found == false) { // Ends when check is found
             for (int i = 0; i < contentLen; i++) {
-                int j = 0;
+                int j = 0; // check index
                 if (content.charAt(i) == check.charAt(j)) { // Checks for first char similarity between both strings
                     similarity = 0;
                     
                     // Loop through both strings to check for continuing similarites
                     while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
                         similarity++;
-                        i++;
-                        j++;
+                        i++; // content index
+                        j++; // check index
                     }
                     if (similarity == checkLen) {
                         found = true; // Check has been found

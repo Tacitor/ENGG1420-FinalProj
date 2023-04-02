@@ -1,5 +1,5 @@
 /*
- * Lukas Krampitz
+ * Mackenzie Alec McBurney
  * Apr 1, 2023
  * Filter Processing Element that searches the contents of Entries
  */
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Tacitor
+ * @author kyure
  */
 public class ContentFilter extends ProcessingElement {
 
@@ -36,6 +36,7 @@ public class ContentFilter extends ProcessingElement {
         
         for (int i = 0; i < input.size(); i++) {
             try {
+                // Checks if the key appears within the contents of the entry
                 if (contains(key, input.get(i).getContents())) {
                     output.add(input.get(i));
                 }
@@ -64,18 +65,18 @@ public class ContentFilter extends ProcessingElement {
         
         while (found == false) { // Ends when check is found
             for (int i = 0; i < contentLen; i++) {
-                int j = 0;
+                int j = 0; // check index
                 if (content.charAt(i) == check.charAt(j)) { // Checks for first char similarity between both strings
                     similarity = 0;
                     
                     // Loop through both strings to check for continuing similarites
                     while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
                         similarity++;
-                        i++;
-                        j++;
+                        i++; // content index
+                        j++; // check index
                     }
-                    if (similarity == checkLen) { // Check has been found
-                        found = true;
+                    if (similarity == checkLen) { 
+                        found = true; // Check has been found
                     }
                 }
             }
