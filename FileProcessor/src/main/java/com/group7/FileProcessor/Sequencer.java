@@ -6,8 +6,16 @@
 package com.group7.FileProcessor;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.group7.FileProcessor.pojo.ProcessingElementPOJO;
-import com.group7.FileProcessor.pojo.ScenarioPOJO;
+import com.group7.FileProcessor.entries.*;
+import com.group7.FileProcessor.pojo.*;
+import elements.List;
+import elements.Print;
+import elements.Rename;
+import elements.Split;
+import elements.filters.ContentFilter;
+import elements.filters.CountFilter;
+import elements.filters.LengthFilter;
+import elements.filters.NameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -91,23 +99,129 @@ public class Sequencer {
 
                 //=-=-=-=-=-=-=-=-=-=
                 //TODO this needs to map the POJOs to the Shalev Element
-                //=-=-=-=-=-=-=-=-=-=
+                //ENTRYGENNY
                 
-                //loop through all the processing elements and run them
-                for (int i = 0; i < processingElements.size(); i++) {
+                
+                //read type if local read path, test if file or folder
+                //Reads entrys from scenarioPOJO to create the arraylist of Entries
+                //=-=-=-=-=-=-=-=-=-=
+                //Instantiate each processing element
+                NameFilter nameFilter = new NameFilter();
+                LengthFilter lengthFilter = new LengthFilter();
+                ContentFilter contentFilter = new ContentFilter();
+                CountFilter countFilter = new CountFilter();
+                Split split = new Split();
+                List list = new List();
+                Rename rename = new Rename();
+                Print print = new Print();
 
-                    //TODO add the proccessing feature
-                    //run the current element
-                    //processingElements.get(i).process();
-                    //update the next element to have its input be the output of the other
-                    //check for out of bounds too
-                    if (i != (processingElements.size() - 1)) {
+                ArrayList<ParametersPOJO> params;//variable for storing parameters retrieved from scenarioPOJO
+                ArrayList<EntriesPOJO> entries;//variable for entries information from json
+                
+                ArrayList<Entry> processEntries = new ArrayList();
+                EntryGenny entryGenny = new EntryGenny();
 
-                        //TODO add the ablility to get the output of a processing element
-                        //update the next element
-                        //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                //Sequence Processing Elements
+                for (ProcessingElementPOJO element : processingElements) {
+                    params = element.getParameters();//ArrayList of paramaters
+                    entries = element.getInput_entries();
+                    //Identify element type and assign paramaters to element object using setters then call process()
+
+                    if (element.getType().equalsIgnoreCase("Print")) {
+                        //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run Print element");
+                        print.setInputEntries(processEntries);
+                        print.process();
+                        processEntries = print.getOutputEntries();
+
+                    } else if (element.getType().equalsIgnoreCase("NameFilter")) {
+                        //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run NameFilter element with Key: " + params.get(0).getValue());
+                        nameFilter.setInputEntries(processEntries);
+                        nameFilter.setKey(params.get(0).getValue());
+                        nameFilter.process();
+                        processEntries = nameFilter.getOutputEntries();
+
+                    } else if (element.getType().equalsIgnoreCase("LengthFilter")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run LengthFilter element with Length: " + params.get(0).getValue() + " Operator: " + params.get(1).getValue());
+                        lengthFilter.setInputEntries(processEntries);
+                        lengthFilter.setLength(Long.parseLong(params.get(0).getValue()));//long.parse turns string to long
+                        lengthFilter.setOperator(params.get(1).getValue());
+                        lengthFilter.process();
+                        processEntries = lengthFilter.getOutputEntries();
+
+                    } else if (element.getType().equalsIgnoreCase("ContentFilter")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run ContentFilter element with Key: " + params.get(0).getValue());
+                        contentFilter.setInputEntries(processEntries);
+                        contentFilter.setKey(params.get(0).getValue());
+                        contentFilter.process();
+                        processEntries = contentFilter.getOutputEntries();
+
+                    } else if (element.getType().equalsIgnoreCase("CountFilter")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run CountFilter element with Key: " + params.get(0).getValue() + " Min: " + params.get(1).getValue());
+                        countFilter.setInputEntries(processEntries);
+                        countFilter.setKey(params.get(0).getValue());
+                        countFilter.process();
+                        processEntries = countFilter.getOutputEntries();
+
+                    } else if (element.getType().equalsIgnoreCase("Split")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run Split element with Lines: " + params.get(0).getValue());
+                        split.setInputEntries(processEntries);
+                        split.setLines(Integer.parseInt(params.get(0).getValue()));
+                        split.process();
+                        processEntries = split.getOutputEntries();
+
+                    } else if (element.getType().equalsIgnoreCase("List")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run List element with Max: " + params.get(0).getValue());
+                        list.setInputEntries(processEntries);
+                        list.setMax(Integer.parseInt(params.get(0).getValue()));
+                        list.process();
+                        processEntries = list.getOutputEntries();
+
+                    } else if (element.getType().equalsIgnoreCase("Rename")) {
+                         //should loop through entries array
+                        processEntries.add(entryGenny.addEntry(entries.get(0)));//Update entries: get path, send to Genny, add return to entries
+                        //
+                        System.out.println("Run Rename element with Suffix: " + params.get(0).getValue());
+                        rename.setInputEntries(processEntries);
+                        rename.setSuffix(params.get(0).getValue());
+                        rename.process();
+                        processEntries = rename.getOutputEntries();
                     }
+
                 }
+
+                //call
+                //TODO add the proccessing feature
+                //run the current element
+                //processingElements.get(i).process();
+                //update the next element to have its input be the output of the other
+                //check for out of bounds too
+                //if (i != (processingElements.size() - 1)) {
+                //TODO add the ablility to get the output of a processing element
+                //update the next element
+                //processingElements.get(i + 1).setInput_entries(processingElements.get(i).getOutput());
+                //}
+                //}
             }
 
         } else {

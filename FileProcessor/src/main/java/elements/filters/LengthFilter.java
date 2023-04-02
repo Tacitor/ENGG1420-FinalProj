@@ -21,12 +21,9 @@ public class LengthFilter extends ProcessingElement {
     private String operator;
 
     /**
-     * Primary default constructor.
-     *
-     * @param operator
-     * @param length
+     * Primary default constructor.h
      */
-    public LengthFilter(String operator, Long length) {
+    public LengthFilter() {
         super();
     }
 

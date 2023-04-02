@@ -23,10 +23,8 @@ public class CountFilter extends ProcessingElement {
 
     /**
      * Primary default constructor.
-     * @param key
-     * @param min
      */
-    public CountFilter(String key, int min) {
+    public CountFilter() {
         super();
     }
     

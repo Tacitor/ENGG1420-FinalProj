@@ -20,10 +20,8 @@ public class NameFilter extends ProcessingElement {
 
     /**
      * Primary default constructor.
-     *
-     * @param key
      */
-    public NameFilter(String key) {
+    public NameFilter() {
         super();
     }
 
