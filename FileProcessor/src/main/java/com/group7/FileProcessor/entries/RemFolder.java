@@ -199,7 +199,7 @@ public class RemFolder extends LocFolder {
         }
 
         return "Local Folder:\tEntryID: " + entryId + "\tName: " + address.substring(index - 1)
-                + "\tLength: [ERROR]" + "\tAbsolute path: " + address;
+                + "\tLength: [ERROR]" + "\tAbsolute path: [ERROR]";
     }
 
     
