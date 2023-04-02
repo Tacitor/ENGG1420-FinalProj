@@ -28,12 +28,9 @@ public class ContentFilter extends ProcessingElement {
 
     @Override
     public void process() {
-        // Make a copy of the input of entries
-        ArrayList<Entry> inputCopy = this.getInputEntries();
-        ArrayList<Entry> input = new ArrayList<>();
-        for (int i = 0; i < inputCopy.size(); i++) {
-            input.add(inputCopy.get(i));
-        }
+        // Make a local reference of the input of entries
+        ArrayList<Entry> input = this.getInputEntries();
+        
         // Ouput of entries
         ArrayList<Entry> output = new ArrayList<>();
         

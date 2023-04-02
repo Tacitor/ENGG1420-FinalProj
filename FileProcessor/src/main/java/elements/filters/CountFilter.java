@@ -28,8 +28,6 @@ public class CountFilter extends ProcessingElement {
      */
     public CountFilter(String key, int min) {
         super();
-        setKey(key);
-        setMin(min);
     }
     
     /**
@@ -41,11 +39,8 @@ public class CountFilter extends ProcessingElement {
     @Override
     public void process() {        
         // Make a local reference of the input of entries
-        ArrayList<Entry> inputCopy = this.getInputEntries();
-        ArrayList<Entry> input = new ArrayList<>();
-        for (int i = 0; i < inputCopy.size(); i++) {
-            input.add(inputCopy.get(i));
-        }
+        ArrayList<Entry> input = this.getInputEntries();
+        
         // Ouput of entries
         ArrayList<Entry> output = new ArrayList<>();
 
