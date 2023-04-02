@@ -99,6 +99,7 @@ public class CountFilter extends ProcessingElement {
     
     /**
      * Contains method that checks for a String within a String "min" number of times
+     * Is case sensitive
      * 
      * @param check
      * @param content
@@ -112,9 +113,8 @@ public class CountFilter extends ProcessingElement {
         int checkLen = check.length();
         int similarity;
         int count = 0; // Keep track of how many times check has been found
-        
-        while (found == false) { // Ends when check is found min times
-            for (int i = 0; i < contentLen; i++) {
+        int i = 0;
+        while (found == false && i < contentLen) { // Ends when check is found min times
                 int j = 0; // check index
                 if (content.charAt(i) == check.charAt(j)) { // Checks for first char similarity between both strings
                     similarity = 0;
@@ -132,7 +132,7 @@ public class CountFilter extends ProcessingElement {
                         found = true; // Check has been found min number of times
                     }
                 }
-            }
+                i++;
         }
         return found;
     }
