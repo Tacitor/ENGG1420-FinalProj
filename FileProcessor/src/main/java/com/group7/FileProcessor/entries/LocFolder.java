@@ -56,5 +56,10 @@ public class LocFolder extends Entry {
     public String getContents() throws FolderDoesNotContainTextException{
         throw new FolderDoesNotContainTextException();
     }
+
+    @Override
+    public Entry clone() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

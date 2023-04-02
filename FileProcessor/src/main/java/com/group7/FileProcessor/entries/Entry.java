@@ -12,17 +12,18 @@ import java.io.FileNotFoundException;
  * @author shalev
  */
 public abstract class Entry {
-    
-    
-    long length; // stores length in byte formatt
-    String address;
-    String contents;
-    
-    public Entry(String address){
+
+    protected long length; // stores length in byte formatt
+    protected String address;
+    protected String contents;
+
+    public Entry(String address) {
         this.address = address;
-        
+
     }
-    protected Entry(){}
+
+    protected Entry() {
+    }
 
     public long getLength() {
         return length;
@@ -31,42 +32,51 @@ public abstract class Entry {
     public String getAddress() {
         return address;
     }
-    protected void setAddress(String address){
+
+    /**
+     * Public Mutator for the address of an Entry. This method is public because
+     * it needs to be accessed by other classes such as Split and Rename.
+     *
+     * @param address
+     */
+    public void setAddress(String address) {
         this.address = address;
     }
-    
 
     protected void setLength(long length) {
         this.length = length;
     }
-    
+
     public abstract String getContents() throws FolderDoesNotContainTextException;
-    
-        /**
+
+    /**
      * a method to get the stored size of a file or folder on disk
+     *
      * @param address
-     * @return 
+     * @return
      * @throws java.io.FileNotFoundException
      */
-    public static long getLength(String address) throws FileNotFoundException{
-            
-            
-            File file = new File(address);
-            if (!file.exists()){
-                throw new FileNotFoundException();
-            }else{
-                if (file.isFile()){
-                    return file.length();
-                }else{
-                    File[] subFiles = file.listFiles();
-                    long total = 0;
-                    for(File subFile : subFiles){
-                        total += getLength(subFile.getAbsolutePath());
-                    }
-                    return total;
+    public static long getLength(String address) throws FileNotFoundException {
+
+        File file = new File(address);
+        if (!file.exists()) {
+            throw new FileNotFoundException();
+        } else {
+            if (file.isFile()) {
+                return file.length();
+            } else {
+                File[] subFiles = file.listFiles();
+                long total = 0;
+                for (File subFile : subFiles) {
+                    total += getLength(subFile.getAbsolutePath());
                 }
-                
+                return total;
             }
 
+        }
+
     }
+
+    @Override
+    public abstract Entry clone();
 }
