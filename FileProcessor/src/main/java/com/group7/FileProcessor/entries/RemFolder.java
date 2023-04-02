@@ -170,7 +170,7 @@ public class RemFolder extends LocFolder {
     }
 
     @Override
-    public Entry clone() {
+    public com.group7.FileProcessor.entries.Entry clone() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
