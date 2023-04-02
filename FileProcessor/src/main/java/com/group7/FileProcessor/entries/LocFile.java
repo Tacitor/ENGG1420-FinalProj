@@ -19,11 +19,11 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
 
     public LocFile(String address) {
         super(address);
+        // updating the stored contents using the address
         updateContents();
     }
 
-    protected LocFile() {
-    }
+    protected LocFile(){}//default protected constructor to be used bythe remote classes since they generate their own addresses 
 
     @Override
     public String getContents() throws FolderDoesNotContainTextException {
@@ -57,6 +57,10 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
         }
     }
 
+    /**
+     * a method to create a clone of a locFile instance
+     * @return returns the clone
+     */
     @Override
     public LocFile clone() {
         LocFile newLocFile = new LocFile();
