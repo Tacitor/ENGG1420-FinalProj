@@ -31,11 +31,16 @@ public class CountFilter extends ProcessingElement {
         setKey(key);
         setMin(min);
     }
-
+    
+    /**
+     * The process of the count filter.
+     * Checks to see if an entry is a file.
+     * Checks to see if the contents of the entry contains a string min number of times
+     * 
+     */
     @Override
     public void process() {        
-        
-        // Make a copy of the input of entries
+        // Make a local reference of the input of entries
         ArrayList<Entry> inputCopy = this.getInputEntries();
         ArrayList<Entry> input = new ArrayList<>();
         for (int i = 0; i < inputCopy.size(); i++) {
@@ -43,11 +48,14 @@ public class CountFilter extends ProcessingElement {
         }
         // Ouput of entries
         ArrayList<Entry> output = new ArrayList<>();
-        
+
         for (int i = 0; i < input.size(); i++) {
-            //Check to make sure entry is a file
+            
+            // Check to make sure entry is a file
             if (Util.isFile(input.get(i).getAddress()) == 1) {
                 try {
+                    
+                    // Checks if the entry contains the key min number of times
                     if(contains(key, input.get(i).getContents(), min)){
                         output.add(input.get(i));
                     }
@@ -56,17 +64,30 @@ public class CountFilter extends ProcessingElement {
                 }
             }
         }
+        // Outputs the filtered list of entries
         setOutputEntries(output);
     }
-
+    
+    /**
+     * Accessor for the var Key
+     * @return 
+     */
     public String getKey() {
         return key;
     }
-
+        
+    /**
+     * Mutator for the var Key
+     * @param key 
+     */
     public void setKey(String key) {
         this.key = key;
     }
-
+    
+    /**
+     * Accessor for the var Min
+     * @return 
+     */
     public int getMin() {
         return min;
     }
@@ -78,31 +99,42 @@ public class CountFilter extends ProcessingElement {
      * @param min
      */
     public void setMin(int min) {
-        // To make sure min is >= 0
         this.min = Util.getIntGreaterThan1(min);
     }
-
+    
+    /**
+     * Contains method that checks for a String within a String "min" number of times
+     * 
+     * @param check
+     * @param content
+     * @param min
+     * @return 
+     */
     private boolean contains(String check, String content, int min) {
-        boolean found = false;
+        
+        boolean found = false; // Has check been found min times
         int contentLen = content.length();
         int checkLen = check.length();
         int similarity;
-        int count = 0;
-        while (found == false) {
+        int count = 0; // Keep track of how many times check has been found
+        
+        while (found == false) { // Ends when check is found min times
             for (int i = 0; i < contentLen; i++) {
                 int j = 0;
-                if (content.charAt(i) == check.charAt(j)) {
+                if (content.charAt(i) == check.charAt(j)) { // Checks for first char similarity between both strings
                     similarity = 0;
+                    
+                    // Loop through both strings to check for continuing similarites
                     while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
                         similarity++;
                         i++;
                         j++;
                     }
                     if (similarity == checkLen) {
-                        count++;
+                        count++; // Check has been found 
                     }
                     if (count == min) {
-                        found = true;
+                        found = true; // Check has been found min number of times
                     }
                 }
             }
