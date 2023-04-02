@@ -50,7 +50,26 @@ public class RemFile extends LocFile {
 
     @Override
     public RemFile clone() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //create the new remote file
+        RemFile newRemFile;
+
+        //try catch the new file creation
+        try {
+            newRemFile = new RemFile(accessKey, repositoryId);
+            
+            //add the other entry information
+            newRemFile.setAddress(address);
+            newRemFile.setLength(length);
+            newRemFile.setContents(contents);
+
+        } catch (IOException e) {
+            System.out.println("IOException in RemFile using clone(). Unable to create new Remote Entry. Returning null.\n" + e);
+
+            //return it as a null object because of the exception
+            newRemFile = null;
+        }
+
+        return newRemFile;
     }
 
 }
