@@ -42,7 +42,7 @@ public class NameFilter extends ProcessingElement {
         for (int i = 0; i < input.size(); i++) {
             String name = getName(input.get(i).getAddress());
             if (contains(key, name)) {
-
+                output.add(input.get(i));
             }
         }
 
