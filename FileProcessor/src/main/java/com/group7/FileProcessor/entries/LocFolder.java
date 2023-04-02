@@ -72,5 +72,9 @@ public class LocFolder extends Entry {
     public Entry clone() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public void setContents(String temp) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

@@ -7,7 +7,10 @@ package elements;
 import com.group7.FileProcessor.Util;
 import com.group7.FileProcessor.entries.Entry;
 import com.group7.FileProcessor.entries.FolderDoesNotContainTextException;
+import com.group7.FileProcessor.entries.LocFile;
+import com.group7.FileProcessor.entries.LocFolder;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -32,6 +35,7 @@ public class Split extends ProcessingElement {
         String contents;
         String[] contentsByLine;
         String temp;
+        int num=-1;
 
         for (int i = 0; i < entries.size(); i++) {
             try {
@@ -39,17 +43,22 @@ public class Split extends ProcessingElement {
                 contents = entry.getContents();
                 contentsByLine = contents.split("\n");
                 
-                for (int j = 0; j < contentsByLine.length; j++) {
+                for (int j = 0; j < contentsByLine.length;) {
+                    
+                    num++;
                     temp = "";
                     Entry clone = entry.clone();
-                    for (int count = lines; count > 0 && j < contentsByLine.length; count--) {
-                        temp+=contentsByLine[count]+"\n";
+                    for (int count = lines; count > 0 && j < contentsByLine.length; count--, j++) {
+                        temp+=contentsByLine[j]+"\n";
                     }
-                    clone.setAddress(entry.getAddress().split(".")[0]+j+".txt");
-                    clone.setContents(temp);
+                    clone.setAddress(entry.getAddress().split("\\.")[0]+num+".txt");
+                    ((LocFile)clone).setContents(temp);
+
                     output.add(clone);
                 }
-                }catch(FolderDoesNotContainTextException e){}
+                }catch(FolderDoesNotContainTextException e){
+                output.add(entries.get(i));
+                }
             }
         
         setOutputEntries(output);
