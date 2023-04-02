@@ -12,26 +12,25 @@ import java.io.IOException;
  *
  * @author shale
  */
-public class RemFile extends LocFile{
-    
+public class RemFile extends LocFile {
+
     String accessKey;
     String repositoryId;
-    static int downloadnum=0;
-    
-    public RemFile(String accessKey,String repositoryId) throws IOException{
+    static int downloadnum = 0;
+
+    public RemFile(String accessKey, String repositoryId) throws IOException {
         File fold = new File("C:\\ENG1420Group7FileProccessor");
         boolean dir = true;
-        if (!fold.exists()){
+        if (!fold.exists()) {
             dir = fold.mkdir();
         }
-        setAddress(fold.getAbsolutePath()+"\\filedownload"+downloadnum+".txt");
+        setAddress(fold.getAbsolutePath() + "\\filedownload" + downloadnum + ".txt");
         downloadnum++;
         File newFile = new File(getAddress());
         newFile.createNewFile();
         this.accessKey = accessKey;
         this.repositoryId = repositoryId;
     }
-    
 
     public String getAccessKey() {
         return accessKey;
@@ -48,5 +47,29 @@ public class RemFile extends LocFile{
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
     }
-    
+
+    @Override
+    public RemFile clone() {
+        //create the new remote file
+        RemFile newRemFile;
+
+        //try catch the new file creation
+        try {
+            newRemFile = new RemFile(accessKey, repositoryId);
+            
+            //add the other entry information
+            newRemFile.setAddress(address);
+            newRemFile.setLength(length);
+            newRemFile.setContents(contents);
+
+        } catch (IOException e) {
+            System.out.println("IOException in RemFile using clone(). Unable to create new Remote Entry. Returning null.\n" + e);
+
+            //return it as a null object because of the exception
+            newRemFile = null;
+        }
+
+        return newRemFile;
+    }
+
 }

@@ -10,16 +10,16 @@ import java.io.File;
  *
  * @author shale
  */
-public class RemFolder extends LocFolder{
-    
+public class RemFolder extends LocFolder {
+
     String accessKey;
     String repositoryId;
-    static int downloadnum=0;
-    
-    public RemFolder(String accessKey,String repositoryId){
-        File fold = new File("C:\\ENG1420Group7FileProccessor\\folderdownload"+downloadnum);
+    static int downloadnum = 0;
+
+    public RemFolder(String accessKey, String repositoryId) {
+        File fold = new File("C:\\ENG1420Group7FileProccessor\\folderdownload" + downloadnum);
         boolean dir = true;
-        if (!fold.exists()){
+        if (!fold.exists()) {
             dir = fold.mkdirs();
         }
         setAddress(fold.getAbsolutePath());
@@ -43,7 +43,10 @@ public class RemFolder extends LocFolder{
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
     }
-    
-}
-    
 
+    @Override
+    public Entry clone() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+}
