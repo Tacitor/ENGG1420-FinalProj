@@ -46,47 +46,47 @@ public class LengthFilter extends ProcessingElement {
 
         for (int i = 0; i < input.size(); i++) {
 
-            if (Util.isFile(input.get(i).getAddress()) == 1) {
+            if (Util.isFile(input.get(i).getAddress()) == 1) { // Make sure entry is a file
                 try {
-                    String content = input.get(i).getContents();
+                    String content = input.get(i).getContents(); // Make a local reference of the contents of a file
                     switch (operator) {
-                        case "EQ" -> {
+                        case "EQ" -> { // Equals  to opperator
                             if (content.length() == getLength()) {
                                 output.add(input.get(i));
                             }
                         }
 
-                        case "NEQ" -> {
+                        case "NEQ" -> { // Not equals to opperator
                             if (content.length() != getLength()) {
                                 output.add(input.get(i));
                             }
                         }
 
-                        case "GT" -> {
+                        case "GT" -> { // Greater than opperator
                             if (content.length() > getLength()) {
                                 output.add(input.get(i));
                             }
                         }
 
-                        case "GTE" -> {
+                        case "GTE" -> { // Greater than or equals to opperator
                             if (content.length() >= getLength()) {
                                 output.add(input.get(i));
                             }
                         }
 
-                        case "LT" -> {
+                        case "LT" -> { // Less than oppertor
                             if (content.length() < getLength()) {
                                 output.add(input.get(i));
                             }
                         }
 
-                        case "LTE" -> {
+                        case "LTE" -> { // Less than or equals to operator
                             if (content.length() <= getLength()) {
                                 output.add(input.get(i));
                             }
                         }
 
-                        default ->
+                        default -> // Invalid operator
                             System.out.println("Invalid comparison operator.");
                     }
                 } catch (FolderDoesNotContainTextException ex) {
