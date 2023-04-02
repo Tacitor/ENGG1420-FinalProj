@@ -6,6 +6,8 @@ package elements;
 
 import java.util.ArrayList;
 import com.group7.FileProcessor.entries.Entry;
+import com.group7.FileProcessor.entries.LocFile;
+import com.group7.FileProcessor.entries.LocFolder;
 
 /**
  *
@@ -32,16 +34,15 @@ public class Rename extends ProcessingElement {
             Entry renamedEntry = e.clone(); // clone the input entries string 
             int index = str.lastIndexOf(".");// search through the string to find the last instance of '.'
             int index2 = str.lastIndexOf("/");// search through the string to find the last instance of '.'
-            if (index != -1) { //if index exist
-                str = str.substring(0, index - 1) + suffix + '.' + str.substring(index + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
-            }
-            else{
-                str = str.substring(0, index - 1) + suffix + '/' + str.substring(index + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
-            }
-            renamedEntry.setAddress(str);// set that entries address to the new string of str
-            output.add(renamedEntry); // add the entry to blank output arraylist
+            
+                if (e instanceof LocFile) { //if its a file or a folder
+                    str = str.substring(0, index - 1) + suffix + '.' + str.substring(index + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
+                } else {
+                    str = str.substring(0, index2 - 1) + suffix + '/' + str.substring(index2 + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
+                }
+                renamedEntry.setAddress(str);// set that entries address to the new string of str
+                output.add(renamedEntry); // add the entry to blank output arraylist
         }
-
         this.setOutputEntries(output); //output entries is set to the entries in output arrayList
     }
 
