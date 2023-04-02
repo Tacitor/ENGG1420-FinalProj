@@ -5,7 +5,9 @@
  */
 package elements.filters;
 
+import com.group7.FileProcessor.entries.Entry;
 import elements.ProcessingElement;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,14 +20,27 @@ public class NameFilter extends ProcessingElement {
 
     /**
      * Primary default constructor.
+     * @param key
      */
-    public NameFilter() {
+    public NameFilter(String key) {
         super();
+        setKey(key);
     }
 
     @Override
     public void process() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Make a copy of the input of entries
+        ArrayList<Entry> inputCopy = this.getInputEntries();
+        ArrayList<Entry> input = new ArrayList<>();
+        for (int i = 0; i < inputCopy.size(); i++) {
+            input.add(inputCopy.get(i));
+        }
+        // Ouput of entries
+        ArrayList<Entry> output = new ArrayList<>();
+        
+        
+        
+        setOutputEntries(output);
     }
 
     public String getKey() {
@@ -34,6 +49,33 @@ public class NameFilter extends ProcessingElement {
 
     public void setKey(String key) {
         this.key = key;
+    }
+    private boolean contains(String check, String content, int min) {
+        boolean found = false;
+        int contentLen = content.length();
+        int checkLen = check.length();
+        int similarity;
+        int count = 0;
+        while (found == false) {
+            for (int i = 0; i < contentLen; i++) {
+                int j = 0;
+                if (content.charAt(i) == check.charAt(j)) {
+                    similarity = 0;
+                    while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
+                        similarity++;
+                        i++;
+                        j++;
+                    }
+                    if (similarity == checkLen) {
+                        count++;
+                    }
+                    if (count == min) {
+                        found = true;
+                    }
+                }
+            }
+        }
+        return found;
     }
 
 }
