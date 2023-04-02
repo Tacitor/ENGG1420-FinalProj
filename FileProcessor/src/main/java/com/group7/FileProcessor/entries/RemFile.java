@@ -122,7 +122,7 @@ public class RemFile extends LocFile {
     }
 
     /**
-     * Return a string representation of the Local File that complies with the
+     * Return a string representation of the Remote File that complies with the
      * requirements of the Print Processing Element in the Project Description.
      *
      * @return

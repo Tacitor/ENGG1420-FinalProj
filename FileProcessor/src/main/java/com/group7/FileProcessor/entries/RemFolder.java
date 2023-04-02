@@ -181,6 +181,26 @@ public class RemFolder extends LocFolder {
     public com.group7.FileProcessor.entries.Entry clone() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    /**
+     * Return a string representation of the Remote Folder that complies with the
+     * requirements of the Print Processing Element in the Project Description.
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+
+        int index = address.lastIndexOf(File.pathSeparator);
+
+        //If there is an issue with finding where the name of the file is just length to the whole file
+        if (index == -1) {
+            index = address.length();
+        }
+
+        return "Local Folder:\tEntryID: " + entryId + "\tName: " + address.substring(index - 1)
+                + "\tLength: [ERROR]" + "\tAbsolute path: " + address;
+    }
 
     
     
