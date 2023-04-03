@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package elements;
 
@@ -20,6 +20,13 @@ public class Print extends ProcessingElement {
         super();
     }
 
+    /**
+     * Input: a list of entries What it does: prints the information of the
+     * entry. For local entries, this includes the name, length, and absolute
+     * path of the entry. For remote entries, this includes the entryId, name,
+     * length, and absolute path of the entry. Output: the same list of entries
+     * as input
+     */
     @Override
     public void process() {
         //Grab th e input ArrayList to make things easier
@@ -31,5 +38,4 @@ public class Print extends ProcessingElement {
             System.out.println(e.toString());
         }
     }
-
 }
