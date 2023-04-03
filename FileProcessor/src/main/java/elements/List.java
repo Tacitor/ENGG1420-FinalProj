@@ -86,7 +86,7 @@ public class List extends ProcessingElement {
                         output.add(newEntryToAdd);
                     } else {
                         newEntryToAdd = new RemFolder(e.getAddress());
-                        ((RemFolder)newEntryToAdd).setentryId((int)(Math.random()*25));
+                        ((RemFolder)newEntryToAdd).setentryId(i);
                         output.add(newEntryToAdd);
                     }
                 }
