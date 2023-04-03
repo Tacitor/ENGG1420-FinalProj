@@ -62,7 +62,7 @@ public class Split extends ProcessingElement {
                             temp += contentsByLine[j] + "\n";
                         }
                         //asigning the propper address to the clone
-                        clone.setAddress(entry.getAddress().split("\\.")[0] + index + ".txt");
+                        clone.setAddress(entry.getAddress().split("\\.")[0] + ".part" + index + ".txt");
                         ((LocFile) clone).setContents(temp);// setting the contents to the temp string
 
                         output.add(clone);
