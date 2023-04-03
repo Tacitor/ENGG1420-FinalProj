@@ -82,6 +82,7 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
         return newLocFile;
     }
 
+
     /**
      * Return a string representation of the Local File that complies with the
      * requirements of the Print Processing Element in the Project Description.

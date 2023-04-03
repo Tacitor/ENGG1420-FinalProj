@@ -19,6 +19,7 @@ public abstract class Entry {
 
     public Entry(String address) {
         this.address = address;
+        
     }
 
     protected Entry() {

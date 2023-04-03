@@ -85,8 +85,9 @@ public class List extends ProcessingElement {
                         //add it to the output
                         output.add(newEntryToAdd);
                     } else {
-                        newEntryToAdd = null;
-                        System.out.println("ERROR: Attempted list of a Remote Folder in List.java for Entry:\t" + e.getAddress() + "\tEntry ID of: " + ((RemFolder) e).getEntryId());
+                        newEntryToAdd = new RemFolder(e.getAddress());
+                        ((RemFolder)newEntryToAdd).setentryId(i);
+                        output.add(newEntryToAdd);
                     }
                 }
             }
