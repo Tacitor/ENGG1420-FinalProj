@@ -43,12 +43,20 @@ public class Split extends ProcessingElement {
         String temp;
         int index = 0;
 
+        long size;
+        
         //running through all the entries
         for (int i = 0; i < entries.size(); i++) {
+            
+            
+            
             try {//using a try-catch to insure that only files are split
                 Entry entry = entries.get(i);// if the entry is a folder it will go into the catch
                 contents = entry.getContents();
                 contentsByLine = contents.split("\n");//split the contents of the entry based off of \n's
+                
+                size = (entry.getLength()/((contentsByLine.length)%lines));
+                
                 if (contentsByLine.length > lines) {
                     index = 0;
                     for (int j = 0; j < contentsByLine.length;) {// loop goes intil it runs out of lines
@@ -64,6 +72,7 @@ public class Split extends ProcessingElement {
                         //asigning the propper address to the clone
                         clone.setAddress(entry.getAddress().split("\\.")[0] + ".part" + index + ".txt");
                         ((LocFile) clone).setContents(temp);// setting the contents to the temp string
+                        clone.setLength(size);
 
                         output.add(clone);
                     }
