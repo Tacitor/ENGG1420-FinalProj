@@ -48,6 +48,8 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
      * check for any changes to the file
      */
     public void updateContents() {
+        //System.out.println("Updaating contents for: " + address + " in LocFile updateContentts()");
+        
         try {
             file = new File(address);
 

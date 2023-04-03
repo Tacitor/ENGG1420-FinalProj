@@ -28,63 +28,72 @@ public class RemFile extends LocFile {
     //inputing our group acces key and converting it into an AccessKey object
     private static AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
 
-    public RemFile(int entryid, String repositoryId) throws IOException {
+    public RemFile(int entryid, String repositoryId, boolean doUpdateContents) throws IOException {
 
         //instantiating client
         RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
                 servicePrincipalKey, accessKey);
 
-        // getting entry name
-        String name = client.getEntriesClient().getEntry(repositoryId, entryid, null).join().getName();
+        //check for rate limiting the laserfiche API
+        if (doUpdateContents) {
+            // getting entry name
+            String name = client.getEntriesClient().getEntry(repositoryId, entryid, null).join().getName();
 
-        // creating a folder off the C drive to write files to
-        File fold = new File("C:\\ENG1420Group7FileProccessor");
-        boolean dir = true;
-        if (!fold.exists()) {
-            dir = fold.mkdir();
-        }
-
-        setAddress(fold.getAbsolutePath() + "\\" + name + ".txt");
-
-        //downloading the entry of of the lazerfiche servers
-        Consumer<InputStream> consumer = inputStream -> {
-            File exportedFile = new File(getAddress());
-            try (FileOutputStream outputStream = new FileOutputStream(exportedFile)) {
-                byte[] buffer = new byte[1024];
-                while (true) {
-                    int length = inputStream.read(buffer);
-                    if (length == -1) {
-                        break;
-                    }
-                    outputStream.write(buffer, 0, length);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            // creating a folder off the C drive to write files to
+            File fold = new File("C:\\ENG1420Group7FileProccessor");
+            boolean dir = true;
+            if (!fold.exists()) {
+                dir = fold.mkdir();
             }
-        };
 
-        client.getEntriesClient()
-                .exportDocument(repositoryId, entryid, null, consumer)
-                .join();
+            setAddress(fold.getAbsolutePath() + "\\" + name + ".txt");
+
+            //downloading the entry of of the lazerfiche servers
+            Consumer<InputStream> consumer = inputStream -> {
+                File exportedFile = new File(getAddress());
+                try (FileOutputStream outputStream = new FileOutputStream(exportedFile)) {
+                    byte[] buffer = new byte[1024];
+                    while (true) {
+                        int length = inputStream.read(buffer);
+                        if (length == -1) {
+                            break;
+                        }
+                        outputStream.write(buffer, 0, length);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            client.getEntriesClient()
+                    .exportDocument(repositoryId, entryid, null, consumer)
+                    .join();
+
+        }
 
         client.close();
-        updateContents();
+
+        //check is the contents should be updates upon construction. This switch exists so that we don't get rate limited by the LaserFiche API
+        if (doUpdateContents) {
+            updateContents();
+
+            //update the length
+            try {
+                this.setLength(getLength(address));
+            } catch (FileNotFoundException e) {
+                System.out.println("ERROR");
+                this.setLength(-2);
+            }
+        }
         this.entryId = entryid;
         this.repositoryId = repositoryId;
-        
-        //update the length
-        try {
-            this.setLength(getLength(address));
-        } catch (FileNotFoundException e) {
-            System.out.println("ERROR");
-            this.setLength(-2);
-        }
+
     }
 
     /**
@@ -135,7 +144,7 @@ public class RemFile extends LocFile {
 
         //try catch the new file creation
         try {
-            newRemFile = new RemFile(entryId, repositoryId);
+            newRemFile = new RemFile(entryId, repositoryId, false);
 
             //add the other entry information
             newRemFile.setAddress(address);

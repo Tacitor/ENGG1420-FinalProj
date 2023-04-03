@@ -47,7 +47,7 @@ public class EntryGenny {
 
                 try {
                     //create the Entry
-                    RemFile remFile = new RemFile(entryId, repositoryId);
+                    RemFile remFile = new RemFile(entryId, repositoryId, true);
                     return remFile;
                 } catch (IOException ex) {
                     System.out.println("IOException in EntryGenny.java when creating a new REMOTE FILE Entry\n" + ex);
