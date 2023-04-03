@@ -1,14 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package com.group7.FileProcessor.entries;
 
 import com.group7.FileProcessor.Util;
 import com.group7.FileProcessor.pojo.EntriesPOJO;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  *
@@ -37,9 +34,7 @@ public class EntryGenny {
                 System.out.println("LocFile created");
                 return locFolder;
             }
-
         }
         return null;
-
     }
 }

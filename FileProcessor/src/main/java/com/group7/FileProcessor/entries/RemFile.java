@@ -1,19 +1,15 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package com.group7.FileProcessor.entries;
 
 import com.laserfiche.api.client.model.AccessKey;
 import com.laserfiche.repository.api.RepositoryApiClient;
 import com.laserfiche.repository.api.RepositoryApiClientImpl;
-import com.laserfiche.repository.api.clients.impl.model.Entry;
-import com.laserfiche.repository.api.clients.impl.model.ODataValueContextOfIListOfEntry;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.function.Consumer;
 import java.io.IOException;
 
@@ -81,22 +77,47 @@ public class RemFile extends LocFile {
         this.repositoryId = repositoryId;
     }
 
+    /**
+     * An accessor for the var entryId
+     *
+     * @return
+     */
     public int getEntryId() {
         return entryId;
     }
 
+    /**
+     * A mutator for the var entryId
+     *
+     * @param entryid
+     */
     public void setEntrId(int entryid) {
         this.entryId = entryid;
     }
 
+    /**
+     * An accessor for the var entryId
+     *
+     * @return
+     */
     public String getRepositoryId() {
         return repositoryId;
     }
 
+    /**
+     * A mutator for the var repositoryId
+     *
+     * @param repositoryId
+     */
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
     }
 
+    /**
+     * A method that returns a copy of a file.
+     *
+     * @return
+     */
     @Override
     public RemFile clone() {
         //create the new remote file

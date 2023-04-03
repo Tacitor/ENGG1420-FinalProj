@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package com.group7.FileProcessor.entries;
 
@@ -19,15 +19,25 @@ public abstract class Entry {
 
     public Entry(String address) {
         this.address = address;
-
     }
 
-    protected Entry(){}//default protected constructor to be used bythe remote classes since they generate their own addresses
+    protected Entry() {
+    }//default protected constructor to be used bythe remote classes since they generate their own addresses
 
+    /**
+     * Accessor for var length
+     *
+     * @return
+     */
     public long getLength() {
         return length;
     }
 
+    /**
+     * Accessor for var address
+     *
+     * @return
+     */
     public String getAddress() {
         return address;
     }
@@ -42,12 +52,17 @@ public abstract class Entry {
         this.address = address;
     }
 
+    /**
+     * Mutator for var length
+     *
+     * @param length
+     */
     protected void setLength(long length) {
         this.length = length;
     }
 
     public abstract String getContents() throws FolderDoesNotContainTextException;
-    
+
     /**
      * a method to get the stored size of a file or folder on disk
      *
@@ -71,9 +86,7 @@ public abstract class Entry {
                 }
                 return total;
             }
-
         }
-
     }
 
     @Override

@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package com.group7.FileProcessor.entries;
 
@@ -23,6 +23,7 @@ public class LocFolder extends Entry {
 
     /**
      * constructor for a local folder
+     *
      * @param address address of the folder
      */
     public LocFolder(String address) {
@@ -30,22 +31,24 @@ public class LocFolder extends Entry {
         //updates the array of subfiles using the address stored in memory
         updateSubFiles();
     }
-    protected LocFolder(){}//default protected constructor to be used bythe remote classes since they generate their own addresses
+
+    protected LocFolder() {
+    }//default protected constructor to be used bythe remote classes since they generate their own addresses
 
     /**
      * a method to update the stored contents of the folder
      */
     public void updateSubFiles() {
         try {
-            
+
             List<String> tempList;
 
             Path path = Paths.get(address);
 
             Stream<Path> subPaths = Files.walk(path);
 
-            tempList = subPaths.map(p->p.toString()).collect(Collectors.toList());
-            
+            tempList = subPaths.map(p -> p.toString()).collect(Collectors.toList());
+
             subFiles = tempList.toArray(String[]::new);
 
         } catch (IOException e) {
@@ -53,31 +56,53 @@ public class LocFolder extends Entry {
         }
     }
 
+    /**
+     * Accessor for var subFiles
+     *
+     * @return
+     */
     public String[] getSubFiles() {
         return subFiles;
     }
 
+    /**
+     * Mutator for var subFiles
+     *
+     s* @param subFiles
+     */
     public void setSubFiles(String[] subFiles) {
         this.subFiles = subFiles;
     }
-    
-    
 
-   
+    /**
+     * Accessor for var contents
+     *
+     * @return
+     * @throws FolderDoesNotContainTextException
+     */
     @Override
-    public String getContents() throws FolderDoesNotContainTextException{
+    public String getContents() throws FolderDoesNotContainTextException {
         throw new FolderDoesNotContainTextException();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Entry clone() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Mutator for var contents
+     *
+     * @param temp
+     */
     public void setContents(String temp) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     /**
      * Return a string representation of the Local Folder that complies with the
      * requirements of the Print Processing Element in the Project Description.
@@ -97,5 +122,4 @@ public class LocFolder extends Entry {
         return "Local Folder:\tName: " + address.substring(index - 1)
                 + "\tLength: [ERROR]" + "\tAbsolute path: " + address;
     }
-    
 }

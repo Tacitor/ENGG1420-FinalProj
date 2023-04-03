@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package com.group7.FileProcessor.entries;
 
@@ -93,5 +93,4 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
         return "Local File:\tName: " + address.substring(0, index - 1)
                 + "\tLength: " + length + "\tAbsolute path: " + address;
     }
-
 }
