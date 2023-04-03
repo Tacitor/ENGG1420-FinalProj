@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package com.group7.FileProcessor.entries;
 
@@ -9,5 +9,5 @@ package com.group7.FileProcessor.entries;
  * @author shale
  */
 
-//custome checked exception for easier debugging
+//custom checked exception for easier debugging
 public class FolderDoesNotContainTextException extends Exception {}

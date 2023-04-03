@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Group 7
+ * April 2, 2023
  */
 package com.group7.FileProcessor.entries;
 
@@ -11,7 +11,6 @@ import com.laserfiche.repository.api.RepositoryApiClientImpl;
 import com.laserfiche.repository.api.clients.impl.model.Entry;
 import com.laserfiche.repository.api.clients.impl.model.ODataValueContextOfIListOfEntry;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.function.Consumer;
@@ -59,7 +58,6 @@ public class RemFolder extends LocFolder {
         client.close();
 
     }*/
-    
     public RemFolder(int entryId, String repositoryId) {
 
         this.entryId = entryId;
@@ -68,8 +66,7 @@ public class RemFolder extends LocFolder {
         //instantiating client
         RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
                 servicePrincipalKey, accessKey);
-        String name = client.getEntriesClient().getEntry(repositoryId, entryId, null).join().getName();
-        
+        String name = client.getEntriesClient().getEntry(repositoryId, entryId, null).join().getName();        
         
         ODataValueContextOfIListOfEntry result = client
                 .getEntriesClient()
@@ -80,17 +77,17 @@ public class RemFolder extends LocFolder {
         for (Entry childEntry : entries) {
             entryIds.add(childEntry.getId());
             names.add(childEntry.getName());
-        }
-        
+        }        
+
         File fold;
         //only the root folder has an empty name, with my code it'll just put all the files in the Folders folder
         //this is a bit of a workaround
-        if (name.equals("")){
+        if (name.equals("")) {
             fold = new File("C:\\ENG1420Group7FileProccessor\\Folders\\root");
-        }else{
+        } else {
             fold = new File("C:\\ENG1420Group7FileProccessor\\Folders\\" + name);
         }
-        
+
         //creating a folder off the C drive to write files to
         boolean dir = true;
         if (!fold.exists()) {
@@ -109,7 +106,9 @@ public class RemFolder extends LocFolder {
     
 
     /**
-     * a recursive method to download all subFolders of the entry to the correct location on disc
+     * a recursive method to download all subFolders of the entry to the correct
+     * location on disc
+     *
      * @param entryId id of the entry
      * @param client the client object being used
      * @param folder the folder that you want the contents to be downloaded to
@@ -122,13 +121,13 @@ public class RemFolder extends LocFolder {
                 .getEntriesClient()
                 .getEntryListing(repositoryId, entryId, true, null, null, null, null, null, "name", null, null, null)
                 .join();
-        
+
         List<Entry> entries = result.getValue();
-        
+
         for (Entry childEntry : entries) {
             // the lazerfiche ipa cannot download folders so if the entry is a folder more actions must be preformed
             if (client.getEntriesClient().getEntry(repositoryId, childEntry.getId(), null).join().getEntryType().toString().equals("Folder")) {
-                
+
                 //getting the name of the subfolder
                 name = client.getEntriesClient().getEntry(repositoryId, childEntry.getId(), null).join().getName();
                 //creating a subfolder of that name in the given folder
@@ -177,19 +176,39 @@ public class RemFolder extends LocFolder {
         }
     }
 
-
+    /**
+     * Accessor for var entryId
+     *
+     * @return entryId
+     * @return
+     */
     public int getEntryId() {
         return entryId;
     }
 
+    /**
+     * Mutator for var entryId
+     *
+     * @param entryId
+     */
     public void setentryId(int entryId) {
         this.entryId = entryId;
     }
 
+    /**
+     * Accessor for var repositoryId
+     *
+     * @return repositoryId
+     */
     public String getRepositoryId() {
         return repositoryId;
     }
 
+    /**
+     * Mutator for var repositoryId
+     *
+     * @param repositoryId
+     */
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
     }
@@ -198,10 +217,11 @@ public class RemFolder extends LocFolder {
     public com.group7.FileProcessor.entries.Entry clone() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     /**
-     * Return a string representation of the Remote Folder that complies with the
-     * requirements of the Print Processing Element in the Project Description.
+     * Return a string representation of the Remote Folder that complies with
+     * the requirements of the Print Processing Element in the Project
+     * Description.
      *
      * @return
      */
@@ -234,9 +254,9 @@ public class RemFolder extends LocFolder {
     public void setNames(ArrayList<String> names) {
         this.names = names;
     }
+    
     public RemFolder(String address) {
         super(address);
     }
-    
     
 }
