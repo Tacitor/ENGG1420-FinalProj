@@ -123,6 +123,6 @@ public class LocFolder extends Entry {
         }
 
         return "Local Folder:\tName: " + address.substring(index + 1)
-                + "\tLength: [ERROR]" + "\tAbsolute path: " + address;
+                + "\tLength: 0" + "\tAbsolute path: " + address;
     }
 }
