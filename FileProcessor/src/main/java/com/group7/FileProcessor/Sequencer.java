@@ -177,6 +177,7 @@ public class Sequencer {
                         System.out.println("Run CountFilter element with Key: " + params.get(0).getValue() + " Min: " + params.get(1).getValue());
                         countFilter.setInputEntries(processEntries);
                         countFilter.setKey(params.get(0).getValue());
+                        countFilter.setMin(Integer.parseInt(params.get(1).getValue()));
                         countFilter.process();
                         processEntries = countFilter.getOutputEntries();
 
