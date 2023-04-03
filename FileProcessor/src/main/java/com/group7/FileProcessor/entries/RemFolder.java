@@ -104,6 +104,9 @@ public class RemFolder extends LocFolder {
         client.close();
 
     }
+    
+    
+    
 
     /**
      * a recursive method to download all subFolders of the entry to the correct location on disc
@@ -231,7 +234,9 @@ public class RemFolder extends LocFolder {
     public void setNames(ArrayList<String> names) {
         this.names = names;
     }
-
+    public RemFolder(String address) {
+        super(address);
+    }
     
     
 }
