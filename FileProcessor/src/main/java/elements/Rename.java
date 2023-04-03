@@ -56,7 +56,7 @@ public class Rename extends ProcessingElement {
     /**
      * Accessor for var suffix
      *
-     * @return
+     * @return suffix
      */
     public String getSuffix() {
         return suffix;

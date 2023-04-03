@@ -11,6 +11,7 @@ import elements.ProcessingElement;
 import java.util.ArrayList;
 
 /**
+ * A class that filters through entries based on a search key in their contents
  *
  * @author kyure
  */
@@ -47,30 +48,33 @@ public class ContentFilter extends ProcessingElement {
 
         setOutputEntries(output);
     }
+
     /**
      * Accessor for var key
-     * @return 
+     *
+     * @return key
      */
     public String getKey() {
         return key;
     }
-    
+
     /**
      * Mutator for var key
-     * @param key 
+     *
+     * @param key
      */
     public void setKey(String key) {
         this.key = key;
     }
-    
+
     /**
-     * Contains method that checks for a String within a String "min" number of times
-     * Is case sensitive
-     * 
+     * Contains method that checks for a String within a String "min" number of
+     * times Is case sensitive
+     *
      * @param check
      * @param content
      * @param min
-     * @return 
+     * @return
      */
     private boolean contains(String check, String content) {
 
@@ -98,5 +102,4 @@ public class ContentFilter extends ProcessingElement {
         }
         return found;
     }
-
 }

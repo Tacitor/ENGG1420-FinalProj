@@ -11,6 +11,7 @@ import elements.ProcessingElement;
 import java.util.ArrayList;
 
 /**
+ * A class to filter through entries based on their size in Bytes
  *
  * @author kyure
  */
@@ -27,6 +28,9 @@ public class LengthFilter extends ProcessingElement {
         super();
     }
 
+    /**
+     * The method that performs the function of the LengthFilter class.
+     */
     @Override
     public void process() {
 
@@ -83,22 +87,39 @@ public class LengthFilter extends ProcessingElement {
             setOutputEntries(output);
         }
     }
-    
-    /*
-    Mutators and Accessors
-    */
+
+    /**
+     * Accessor for var length
+     *
+     * @return length
+     */
     public long getLength() {
         return length;
     }
 
+    /**
+     * Mutator for var length
+     *
+     * @param length
+     */
     public void setLength(long length) {
         this.length = length;
     }
 
+    /**
+     * Accessor for var operator
+     *
+     * @return operator
+     */
     public String getOperator() {
         return operator;
     }
 
+    /**
+     * Mutator for var operator
+     *
+     * @param operator
+     */
     public void setOperator(String operator) {
         this.operator = operator;
     }

@@ -68,18 +68,20 @@ public class Split extends ProcessingElement {
         }
         setOutputEntries(output);
     }
-    
+
     /**
      * Accessor for var lines
-     * @return 
+     *
+     * @return lines
      */
     public int getLines() {
         return lines;
     }
-    
+
     /**
      * Mutator for var lines
-     * @param lines 
+     *
+     * @param lines
      */
     public void setLines(int lines) {
         this.lines = Util.getIntGreaterThan1(lines);
