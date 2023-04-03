@@ -41,7 +41,7 @@ public class Split extends ProcessingElement {
         String contents;
         String[] contentsByLine;//an array containing all the lines in the entry
         String temp;
-        int index=-1;
+        int index=0;
 
         //running through all the entries
         for (int i = 0; i < entries.size(); i++) {
@@ -49,7 +49,7 @@ public class Split extends ProcessingElement {
                 Entry entry = entries.get(i);// if the entry is a folder it will go into the catch
                 contents = entry.getContents();
                 contentsByLine = contents.split("\n");//split the contents of the entry based off of \n's
-                
+                index = 0;
                 for (int j = 0; j < contentsByLine.length;) {// loop goes intil it runs out of lines
                     
                     index++;//update index
