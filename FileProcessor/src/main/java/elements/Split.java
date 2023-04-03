@@ -41,7 +41,7 @@ public class Split extends ProcessingElement {
         String contents;
         String[] contentsByLine;//an array containing all the lines in the entry
         String temp;
-        int index=0;
+        int index = 0;
 
         //running through all the entries
         for (int i = 0; i < entries.size(); i++) {
@@ -49,31 +49,34 @@ public class Split extends ProcessingElement {
                 Entry entry = entries.get(i);// if the entry is a folder it will go into the catch
                 contents = entry.getContents();
                 contentsByLine = contents.split("\n");//split the contents of the entry based off of \n's
-                if (contentsByLine
-                index = 0;
-                for (int j = 0; j < contentsByLine.length;) {// loop goes intil it runs out of lines
-                    
-                    index++;//update index
-                    temp = "";
-                    Entry clone = entry.clone();//creating a clone entry to perform operations on
-                    for (int count = lines; count > 0 && j < contentsByLine.length; count--, j++) {
-                        //count insures that the line limit is not exeeded, j is updated to avoid an out of bounds exception
-                        //adding the specified number of lines to the temo string
-                        temp+=contentsByLine[j]+"\n";
-                    }
-                    //asigning the propper address to the clone
-                    clone.setAddress(entry.getAddress().split("\\.")[0]+index+".txt");
-                    ((LocFile)clone).setContents(temp);// setting the contents to the temp string
+                if (contentsByLine.length > lines) {
+                    index = 0;
+                    for (int j = 0; j < contentsByLine.length;) {// loop goes intil it runs out of lines
 
-                    output.add(clone);
+                        index++;//update index
+                        temp = "";
+                        Entry clone = entry.clone();//creating a clone entry to perform operations on
+                        for (int count = lines; count > 0 && j < contentsByLine.length; count--, j++) {
+                            //count insures that the line limit is not exeeded, j is updated to avoid an out of bounds exception
+                            //adding the specified number of lines to the temo string
+                            temp += contentsByLine[j] + "\n";
+                        }
+                        //asigning the propper address to the clone
+                        clone.setAddress(entry.getAddress().split("\\.")[0] + index + ".txt");
+                        ((LocFile) clone).setContents(temp);// setting the contents to the temp string
+
+                        output.add(clone);
+                    }
+                }else{
+                    output.add(entry);
                 }
-                }catch(FolderDoesNotContainTextException e){//this code is only reachable if the entry if a folder
+            } catch (FolderDoesNotContainTextException e) {//this code is only reachable if the entry if a folder
                 output.add(entries.get(i));//just passes the entry through to the output as folders should be ignored
-                }
             }
-        
-        setOutputEntries(output);//setting the output entries
         }
+
+        setOutputEntries(output);//setting the output entries
+    }
 
     /**
      * Accessor for var lines
