@@ -32,10 +32,13 @@ public class Print extends ProcessingElement {
         //Grab th e input ArrayList to make things easier
         ArrayList<Entry> inputEntries = this.getInputEntries();
 
+        System.out.println("\n+++++Print Processing Element+++++");
         //loop through the input entries
         for (Entry e : inputEntries) {
             //print its information
             System.out.println(e.toString());
         }
+        
+        this.setOutputEntries(inputEntries);
     }
 }

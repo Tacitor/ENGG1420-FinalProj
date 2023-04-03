@@ -213,8 +213,17 @@ public class Sequencer {
                         rename.process();
                         processEntries = rename.getOutputEntries();
                     }
+                    
+                    
+//                    //loop through the elements
+//                    System.out.println("\n\n=-=-=-=Loop done - The output:");
+//                    for (Entry e : processEntries) {
+//                        System.out.println(e.toString());
+//                    }
+//                    System.out.println("=-=-=-=-=Done=-=-=-=");
+//                    
 
-                }
+                    }
 
                 //call
                 //TODO add the proccessing feature

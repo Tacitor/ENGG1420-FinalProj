@@ -43,9 +43,9 @@ public class Rename extends ProcessingElement {
             int index2 = str.lastIndexOf("/");// search through the string to find the last instance of '.'
 
             if (e instanceof LocFile) { //if its a file or a folder
-                str = str.substring(0, index - 1) + suffix + '.' + str.substring(index + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
+                str = str.substring(0, index) + suffix + '.' + str.substring(index + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
             } else {
-                str = str.substring(0, index2 - 1) + suffix + '/' + str.substring(index2 + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
+                str = str.substring(0, index2) + suffix + '/' + str.substring(index2 + 1); // seperate str into two substring, pre '.' and post '.', replace '.' with suffix +'.'
             }
             renamedEntry.setAddress(str);// set that entries address to the new string of str
             output.add(renamedEntry); // add the entry to blank output arraylist

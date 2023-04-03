@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.io.File;
+import java.util.Arrays;
 
 /**
  *
@@ -49,6 +50,8 @@ public class LocFolder extends Entry {
 
             tempList = subPaths.map(p -> p.toString()).collect(Collectors.toList());
 
+            tempList.remove(0);
+
             subFiles = tempList.toArray(String[]::new);
 
         } catch (IOException e) {
@@ -68,7 +71,7 @@ public class LocFolder extends Entry {
     /**
      * Mutator for var subFiles
      *
-     s* @param subFiles
+     * s* @param subFiles
      */
     public void setSubFiles(String[] subFiles) {
         this.subFiles = subFiles;
