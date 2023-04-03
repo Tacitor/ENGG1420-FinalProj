@@ -1,5 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Group 7
+ * April 2, 2023
  */
 
 package com.group7.FileProcessor;
@@ -51,7 +52,7 @@ public class FileProcessorMain {
                             childEntry.getId(), childEntry.getName(), childEntry.getEntryType(), childEntry.getFullPath()));
         }
 
-        // Download an antry 
+        // Download an entry 
         int entryIdToDownload = 25;
         final String FILE_NAME = "DownloadedFile.txt";
         Consumer<InputStream> consumer = inputStream -> {

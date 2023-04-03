@@ -10,6 +10,8 @@ import elements.ProcessingElement;
 import java.util.ArrayList;
 
 /**
+ * A class that filters through entries based on a search key in their
+ * names.
  *
  * @author kyure
  */
@@ -46,7 +48,7 @@ public class NameFilter extends ProcessingElement {
     /**
      * Accessor for the var Key
      *
-     * @return
+     * @return key
      */
     public String getKey() {
         return key;
@@ -87,13 +89,13 @@ public class NameFilter extends ProcessingElement {
     }
 
     /**
-     * Contains method that checks for a String within a String "min" number of times
-     * Is case sensitive
-     * 
+     * Contains method that checks for a String within a String "min" number of
+     * times Is case sensitive
+     *
      * @param check
      * @param content
      * @param min
-     * @return 
+     * @return
      */
     private boolean contains(String check, String content) {
 

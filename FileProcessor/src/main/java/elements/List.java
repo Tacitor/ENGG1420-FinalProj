@@ -27,7 +27,7 @@ public class List extends ProcessingElement {
     public List() {
         super();
     }
-
+    
     @Override
     public void process() {
         /*
