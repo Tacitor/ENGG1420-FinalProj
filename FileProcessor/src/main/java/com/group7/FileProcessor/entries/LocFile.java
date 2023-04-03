@@ -99,8 +99,6 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
             index = 0;
         }
 
-        long len;
-
         return "Local File:\tName: " + address.substring(index + 1)
                 + "\tLength: " + length + "\tAbsolute path: " + address;
     }
