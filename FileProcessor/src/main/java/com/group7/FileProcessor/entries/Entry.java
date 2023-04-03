@@ -33,6 +33,7 @@ public abstract class Entry {
     public long getLength() {
         return length;
     }
+    
 
     /**
      * Accessor for var address
@@ -58,7 +59,7 @@ public abstract class Entry {
      *
      * @param length
      */
-    protected void setLength(long length) {
+    public void setLength(long length) {
         this.length = length;
     }
 
