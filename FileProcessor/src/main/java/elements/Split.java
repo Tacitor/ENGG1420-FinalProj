@@ -49,6 +49,7 @@ public class Split extends ProcessingElement {
                 Entry entry = entries.get(i);// if the entry is a folder it will go into the catch
                 contents = entry.getContents();
                 contentsByLine = contents.split("\n");//split the contents of the entry based off of \n's
+                if (contentsByLine
                 index = 0;
                 for (int j = 0; j < contentsByLine.length;) {// loop goes intil it runs out of lines
                     

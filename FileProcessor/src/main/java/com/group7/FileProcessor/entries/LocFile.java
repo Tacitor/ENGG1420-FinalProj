@@ -73,10 +73,7 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
 
         return newLocFile;
     }
-    
-    public void changeAddress(String address){
-        
-    }
+
 
     /**
      * Return a string representation of the Local File that complies with the
