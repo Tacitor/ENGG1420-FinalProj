@@ -55,7 +55,7 @@ public class Split extends ProcessingElement {
                 contents = entry.getContents();
                 contentsByLine = contents.split("\n");//split the contents of the entry based off of \n's
                 
-                size = (entry.getLength()/((contentsByLine.length)%lines));
+                size = (long) (entry.getLength()/((contentsByLine.length)/(double)lines));
                 
                 if (contentsByLine.length > lines) {
                     index = 0;

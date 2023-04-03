@@ -119,10 +119,10 @@ public class LocFolder extends Entry {
 
         //If there is an issue with finding where the name of the file is just length to the whole file
         if (index == -1) {
-            index = address.length();
+            index = 0;
         }
 
         return "Local Folder:\tName: " + address.substring(index + 1)
-                + "\tLength: [ERROR]" + "\tAbsolute path: " + address;
+                + "\tLength: 0" + "\tAbsolute path: " + address;
     }
 }

@@ -232,11 +232,11 @@ public class RemFolder extends LocFolder {
 
         //If there is an issue with finding where the name of the file is just length to the whole file
         if (index == -1) {
-            index = address.length();
+            index = 0;
         }
 
         return "Local Folder:\tEntryID: " + entryId + "\tName: " + address.substring(index + 1)
-                + "\tLength: [ERROR]" + "\tAbsolute path: [ERROR]";
+                + "\tLength: 0" + "\tAbsolute path: [ERROR]";
     }
 
     public ArrayList<Integer> getEntryIds() {
