@@ -4,10 +4,12 @@
  */
 package com.group7.FileProcessor.entries;
 
+import static com.group7.FileProcessor.entries.Entry.getLength;
 import com.laserfiche.api.client.model.AccessKey;
 import com.laserfiche.repository.api.RepositoryApiClient;
 import com.laserfiche.repository.api.RepositoryApiClientImpl;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.function.Consumer;
@@ -151,15 +153,24 @@ public class RemFile extends LocFile {
     @Override
     public String toString() {
 
-        int index = address.lastIndexOf(".");
+        int index = address.lastIndexOf(File.separator);
 
         //If there is an issue with finding where the name of the file is just length to the whole file
         if (index == -1) {
-            index = address.length();
+            System.out.println("ERROR In RemFile.java toString()");
+            index = 0;
+        }
+        
+        long len;
+        
+        try {
+            len = getLength(address);
+        } catch (FileNotFoundException e) {
+            len = -1;
         }
 
-        return "Remote File:\tEntryID: " + entryId + "\tName: " + address.substring(0, index - 1)
-                + "\tLength: " + length + "\tAbsolute path: [ERROR]";
+        return "Remote File:\tEntryID: " + entryId + "\tName: " + address.substring(index + 1)
+                + "\tLength: " + len + "\tAbsolute path: [ERROR]";
     }
 
 }

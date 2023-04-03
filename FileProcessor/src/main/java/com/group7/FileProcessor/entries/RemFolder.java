@@ -22,8 +22,10 @@ import java.io.IOException;
  */
 public class RemFolder extends LocFolder {
 
-    int entryId;
-    String repositoryId;
+    private int entryId;
+    private String repositoryId;
+    private ArrayList<Integer> entryIds = new ArrayList<Integer>();
+    private ArrayList<String> names = new ArrayList<String>();
 
     static String servicePrincipalKey = "z6N-YywpamJ5Dr227qKb";
     static String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiY2M4NWRlZGUtMGIzZS00ZGIyLTkyNzYtOWY5N2EzMGY2ZWZlIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInh0UFBLcl8zbGVSa1dFQi1QaU9yNkFDMzJETjRRdDd0VmI4amE4VHNwRTQiLAoJCSJ4IjogImtsZl9IOWgxMTN6dmRHcjZ0Rk5MRC1wYk15YWJWUjZzTk5Fb2l1d2NmSTgiLAoJCSJ5IjogInVWcUR4NlRSV0JBaWZTbXJ6NG9uX2NXeEZlTDVPc29xM2V6U0ZQbWtkRk0iLAoJCSJkIjogInJfMHZXYnB6Q2Z2YUYzYXZQeERhNzdKTzItUkRrSWctRnpHWENrbFRNQzgiLAoJCSJpYXQiOiAxNjc3Mjk3NTA4Cgl9Cn0=";
@@ -63,7 +65,18 @@ public class RemFolder extends LocFolder {
         //instantiating client
         RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
                 servicePrincipalKey, accessKey);
-        String name = client.getEntriesClient().getEntry(repositoryId, entryId, null).join().getName();
+        String name = client.getEntriesClient().getEntry(repositoryId, entryId, null).join().getName();        
+        
+        ODataValueContextOfIListOfEntry result = client
+                .getEntriesClient()
+                .getEntryListing(repositoryId, entryId, true, null, null, null, null, null, "name", null, null, null)
+                .join();
+        List<Entry> entries = result.getValue();
+        
+        for (Entry childEntry : entries) {
+            entryIds.add(childEntry.getId());
+            names.add(childEntry.getName());
+        }        
 
         File fold;
         //only the root folder has an empty name, with my code it'll just put all the files in the Folders folder
@@ -211,14 +224,31 @@ public class RemFolder extends LocFolder {
     @Override
     public String toString() {
 
-        int index = address.lastIndexOf(File.pathSeparator);
+        int index = address.lastIndexOf(File.separator);
 
         //If there is an issue with finding where the name of the file is just length to the whole file
         if (index == -1) {
             index = address.length();
         }
 
-        return "Local Folder:\tEntryID: " + entryId + "\tName: " + address.substring(index - 1)
+        return "Local Folder:\tEntryID: " + entryId + "\tName: " + address.substring(index + 1)
                 + "\tLength: [ERROR]" + "\tAbsolute path: [ERROR]";
     }
+
+    public ArrayList<Integer> getEntryIds() {
+        return entryIds;
+    }
+
+    public void setEntryIds(ArrayList<Integer> entryIds) {
+        this.entryIds = entryIds;
+    }
+
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    public void setNames(ArrayList<String> names) {
+        this.names = names;
+    }
+
 }

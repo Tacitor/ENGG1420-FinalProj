@@ -1,6 +1,7 @@
 /*
  * Group 7
  * April 2, 2023
+
  */
 package com.group7.FileProcessor.entries;
 
@@ -31,10 +32,13 @@ public class EntryGenny {
                 return locFile;
             } else if (Util.isDirectory(path) > 0) {
                 LocFolder locFolder = new LocFolder(path);
-                System.out.println("LocFile created");
+
+                System.out.println("LocFolder created");
                 return locFolder;
             }
+
         }
         return null;
+
     }
 }
