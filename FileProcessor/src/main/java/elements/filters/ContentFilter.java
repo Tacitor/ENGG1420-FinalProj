@@ -83,9 +83,14 @@ public class ContentFilter extends ProcessingElement {
         int checkLen = check.length();
         int similarity;
         int i = 0;
+
         while (found == false && i < contentLen) { // Ends when check is found
             int j = 0; // check index
-            if (content.charAt(i) == check.charAt(j)) { // Checks for first char similarity between both strings
+            String str1 = "";
+            String str2 = "";
+            str1 += content.charAt(i);
+            str2 += check.charAt(j);
+            if (str1.equalsIgnoreCase(str2)) { // Checks for first char similarity between both strings
                 similarity = 0;
 
                 // Loop through both strings to check for continuing similarites
@@ -93,6 +98,16 @@ public class ContentFilter extends ProcessingElement {
                     similarity++;
                     i++; // content index
                     j++; // check index
+                    
+                    if (j < checkLen && i < contentLen) {
+                        // Create new strings to check with case insensitivity
+                        String str3 = "";
+                        String str4 = "";
+                        str3 += content.charAt(i);
+                        str4 += check.charAt(j);
+                        str1 = str3;
+                        str2 = str4;
+                    }
                 }
                 if (similarity == checkLen) {
                     found = true; // Check has been found
