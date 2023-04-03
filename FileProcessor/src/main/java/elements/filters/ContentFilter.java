@@ -94,7 +94,7 @@ public class ContentFilter extends ProcessingElement {
                 similarity = 0;
 
                 // Loop through both strings to check for continuing similarites
-                while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
+                while (j < checkLen && i < contentLen && str1.equalsIgnoreCase(str2)) {
                     similarity++;
                     i++; // content index
                     j++; // check index

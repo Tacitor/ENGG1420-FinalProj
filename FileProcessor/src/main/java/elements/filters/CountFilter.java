@@ -110,7 +110,7 @@ public class CountFilter extends ProcessingElement {
      * @return
      */
     private boolean contains(String check, String content, int min) {
-        
+        System.out.println("Started.");
         boolean found = false; // Has check been found min times
         int contentLen = content.length();
         int checkLen = check.length();
@@ -125,11 +125,13 @@ public class CountFilter extends ProcessingElement {
             str1 += content.charAt(i);
             str2 += check.charAt(j);
             
+            System.out.println("Comparing: " + str1 +" to " + str2);
+            
             if (str1.equalsIgnoreCase(str2)) { // Checks for first char similarity between both strings
                 similarity = 0;
 
                 // Loop through both strings to check for continuing similarites
-                while (j < checkLen && i < contentLen && content.charAt(i) == check.charAt(j)) {
+                while (j < checkLen && i < contentLen && str1.equalsIgnoreCase(str2)) {
                     similarity++;
                     i++; // content index
                     j++; // check index
@@ -148,6 +150,7 @@ public class CountFilter extends ProcessingElement {
                     count++; // Check has been found 
                 }
                 if (count == min) {
+                    System.out.println("Count: " + count);
                     found = true; // Check has been found min number of times
                 }
             }
