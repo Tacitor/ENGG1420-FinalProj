@@ -33,35 +33,39 @@ public class Split extends ProcessingElement {
         ArrayList<Entry> entries = getInputEntries();
         ArrayList<Entry> output = new ArrayList<Entry>();
         String contents;
-        String[] contentsByLine;
+        String[] contentsByLine;//an array containing all the lines in the entry
         String temp;
-        int num=-1;
+        int index=-1;
 
+        //running through all the entries
         for (int i = 0; i < entries.size(); i++) {
-            try {
-                Entry entry = entries.get(i);
+            try {//using a try-catch to insure that only files are split
+                Entry entry = entries.get(i);// if the entry is a folder it will go into the catch
                 contents = entry.getContents();
-                contentsByLine = contents.split("\n");
+                contentsByLine = contents.split("\n");//split the contents of the entry based off of \n's
                 
-                for (int j = 0; j < contentsByLine.length;) {
+                for (int j = 0; j < contentsByLine.length;) {// loop goes intil it runs out of lines
                     
-                    num++;
+                    index++;//update index
                     temp = "";
-                    Entry clone = entry.clone();
+                    Entry clone = entry.clone();//creating a clone entry to perform operations on
                     for (int count = lines; count > 0 && j < contentsByLine.length; count--, j++) {
+                        //count insures that the line limit is not exeeded, j is updated to avoid an out of bounds exception
+                        //adding the specified number of lines to the temo string
                         temp+=contentsByLine[j]+"\n";
                     }
-                    clone.setAddress(entry.getAddress().split("\\.")[0]+num+".txt");
-                    ((LocFile)clone).setContents(temp);
+                    //asigning the propper address to the clone
+                    clone.setAddress(entry.getAddress().split("\\.")[0]+index+".txt");
+                    ((LocFile)clone).setContents(temp);// setting the contents to the temp string
 
                     output.add(clone);
                 }
-                }catch(FolderDoesNotContainTextException e){
-                output.add(entries.get(i));
+                }catch(FolderDoesNotContainTextException e){//this code is only reachable if the entry if a folder
+                output.add(entries.get(i));//just passes the entry through to the output as folders should be ignored
                 }
             }
         
-        setOutputEntries(output);
+        setOutputEntries(output);//setting the output entries
         }
 
     
