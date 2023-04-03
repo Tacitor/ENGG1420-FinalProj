@@ -77,6 +77,14 @@ public class RemFile extends LocFile {
         updateContents();
         this.entryId = entryid;
         this.repositoryId = repositoryId;
+        
+        //update the length
+        try {
+            this.setLength(getLength(address));
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR");
+            this.setLength(-2);
+        }
     }
 
     /**
@@ -160,17 +168,9 @@ public class RemFile extends LocFile {
             System.out.println("ERROR In RemFile.java toString()");
             index = 0;
         }
-        
-        long len;
-        
-        try {
-            len = getLength(address);
-        } catch (FileNotFoundException e) {
-            len = -1;
-        }
 
         return "Remote File:\tEntryID: " + entryId + "\tName: " + address.substring(index + 1)
-                + "\tLength: " + len + "\tAbsolute path: [ERROR]";
+                + "\tLength: " + length + "\tAbsolute path: [ERROR]";
     }
 
 }
