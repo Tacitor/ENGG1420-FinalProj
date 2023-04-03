@@ -217,11 +217,11 @@ public class Sequencer {
                     
                     
                     //loop through the elements
-                    System.out.println("=-=-=-=Loop done - The output:");
-                    for (Entry e : processEntries) {
-                        System.out.println(e.toString());
-                    }
-                    System.out.println("=-=-=-=-=Done=-=-=-=\n");                   
+//                    System.out.println("=-=-=-=Loop done - The output:");
+//                    for (Entry e : processEntries) {
+//                        System.out.println(e.toString());
+//                    }
+//                    System.out.println("=-=-=-=-=Done=-=-=-=\n");                   
 
                     }
 
