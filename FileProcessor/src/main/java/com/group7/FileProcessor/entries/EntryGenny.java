@@ -34,7 +34,7 @@ public class EntryGenny {
                 return locFile;
             } else if (Util.isDirectory(path) > 0) {
                 LocFolder locFolder = new LocFolder(path);
-                System.out.println("LocFile created");
+                System.out.println("LocFolder created");
                 return locFolder;
             }
 
