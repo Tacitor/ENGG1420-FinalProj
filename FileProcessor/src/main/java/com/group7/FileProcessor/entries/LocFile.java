@@ -21,6 +21,14 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
         super(address);
         // updating the stored contents using the address
         updateContents();
+
+        //update the length
+        try {
+            this.setLength(getLength(address));
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR");
+            this.setLength(-2);
+        }
     }
 
     protected LocFile() {
@@ -90,16 +98,10 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
             System.out.println("ERROR In LocFile.java toString()");
             index = 0;
         }
-        
+
         long len;
-        
-        try {
-            len = getLength(address);
-        } catch (FileNotFoundException e) {
-            len = -1;
-        }
 
         return "Local File:\tName: " + address.substring(index + 1)
-                + "\tLength: " + len + "\tAbsolute path: " + address;
+                + "\tLength: " + length + "\tAbsolute path: " + address;
     }
 }
