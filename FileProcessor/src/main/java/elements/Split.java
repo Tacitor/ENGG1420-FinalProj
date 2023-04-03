@@ -36,6 +36,7 @@ public class Split extends ProcessingElement {
      */
     @Override
     public void process() {
+        // Initialize ArrayList entries
         ArrayList<Entry> entries = getInputEntries();
         ArrayList<Entry> output = new ArrayList();
         String contents;
