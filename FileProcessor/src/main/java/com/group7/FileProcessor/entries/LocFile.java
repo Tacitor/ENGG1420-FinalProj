@@ -83,15 +83,24 @@ public class LocFile extends Entry {//couldn't name file or it would conflict wi
     @Override
     public String toString() {
 
-        int index = address.lastIndexOf(".");
+        int index = address.lastIndexOf(File.separator);
 
         //If there is an issue with finding where the name of the file is just length to the whole file
         if (index == -1) {
-            index = address.length();
+            System.out.println("ERROR In LocFile.java toString()");
+            index = 0;
+        }
+        
+        long len;
+        
+        try {
+            len = getLength(address);
+        } catch (FileNotFoundException e) {
+            len = -1;
         }
 
-        return "Local File:\tName: " + address.substring(0, index - 1)
-                + "\tLength: " + length + "\tAbsolute path: " + address;
+        return "Local File:\tName: " + address.substring(index + 1)
+                + "\tLength: " + len + "\tAbsolute path: " + address;
     }
 
 }

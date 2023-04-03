@@ -191,14 +191,14 @@ public class RemFolder extends LocFolder {
     @Override
     public String toString() {
 
-        int index = address.lastIndexOf(File.pathSeparator);
+        int index = address.lastIndexOf(File.separator);
 
         //If there is an issue with finding where the name of the file is just length to the whole file
         if (index == -1) {
             index = address.length();
         }
 
-        return "Local Folder:\tEntryID: " + entryId + "\tName: " + address.substring(index - 1)
+        return "Local Folder:\tEntryID: " + entryId + "\tName: " + address.substring(index + 1)
                 + "\tLength: [ERROR]" + "\tAbsolute path: [ERROR]";
     }
 
