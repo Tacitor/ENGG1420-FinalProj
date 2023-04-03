@@ -34,13 +34,14 @@ public abstract class Util {
         //return 
         //return path.substring(path.lastIndexOf(File.separator), path.length()).contains(".");
     }
-    public static int isDirectory(String path){
+
+    public static int isDirectory(String path) {
         File file = new File(path);
-                if(file.exists()){
-                    return file.isDirectory() ? 1:0;
-                }else{
-                    return -1;
-                }
+        if (file.exists()) {
+            return file.isDirectory() ? 1 : 0;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -60,5 +61,4 @@ public abstract class Util {
             return Math.abs(n);
         }
     }
-
 }
